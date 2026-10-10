@@ -9,10 +9,10 @@
 
 .cards > ul > li {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 20px;
   padding: 32px;
   box-shadow: 0 10px 30px rgb(0 0 0 / 8%);
-  border: none;
+  border: 1px solid #FFA500;
 }
 
 .cards > ul > li .cards-card-body {
