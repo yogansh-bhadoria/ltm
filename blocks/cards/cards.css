@@ -21,9 +21,9 @@
 
 .cards > ul > li .cards-card-body:first-child p {
   margin: 0;
-  font-size: 48px;
+  font-size: 44px;
   font-weight: 700;
-  color: #d83b2d;
+  color: #FFA500;
 }
 
 .cards > ul > li .cards-card-body:last-child p {
