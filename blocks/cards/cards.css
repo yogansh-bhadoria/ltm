@@ -3,25 +3,42 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 8%);
+  border: none;
+  transition: transform 0.2s ease;
+}
+
+.cards > ul > li:hover {
+  transform: translateY(-4px);
 }
 
 .cards .cards-card-body {
-  margin: 16px;
+  margin: 0;
 }
 
-.cards .cards-card-image {
-  line-height: 0;
+.cards .cards-card-body p:first-child {
+  font-size: 42px;
+  font-weight: 700;
+  color: #d83b2d;
+  margin-bottom: 16px;
 }
 
-.cards > ul > li img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+.cards .cards-card-body p:last-child {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+}
+
+@media (width <= 768px) {
+  .cards > ul {
+    grid-template-columns: 1fr;
+  }
 }
