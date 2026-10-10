@@ -26,11 +26,17 @@
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
-  transition: all 0.2s ease;
+  border-radius: 4px;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .case-study-nav-link:hover {
   color: #d83b2d;
+}
+
+.case-study-nav-link:focus-visible {
+  outline: 2px solid #d83b2d;
+  outline-offset: 4px;
 }
 
 .case-study-nav-link.active {
@@ -49,7 +55,7 @@
 
 .case-study-heading {
   margin-bottom: 24px;
-  font-size: 40px;
+  font-size: clamp(28px, 4vw, 40px);
   font-weight: 700;
   line-height: 1.2;
 }
@@ -59,6 +65,7 @@
   font-size: 18px;
 }
 
+/* Mobile & Tablet Styles */
 @media (max-width: 900px) {
   .case-study-layout {
     display: block;
@@ -73,17 +80,30 @@
     display: flex;
     gap: 12px;
     overflow-x: auto;
+    padding-bottom: 8px; /* Room for scrollbar/shadow */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Reset vertical margin and prevent squishing in horizontal list */
+  .case-study-nav-item {
+    margin-bottom: 0;
+    flex-shrink: 0;
   }
 
   .case-study-nav-link {
     white-space: nowrap;
-    padding: 8px 12px;
+    padding: 8px 16px;
     border-radius: 20px;
     background: #f4f4f4;
   }
 
   .case-study-nav-link.active {
     background: #d83b2d;
-    color: white;
+    color: #ffffff;
+  }
+
+  /* Reduce scroll offset since sidebar is no longer sticky */
+  .case-study-section {
+    scroll-margin-top: 24px;
   }
 }
