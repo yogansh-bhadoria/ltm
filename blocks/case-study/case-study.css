@@ -66,8 +66,8 @@
 }
 
 /* Mobile & Tablet Styles */
-@media (max-width: 900px) {
-  .case-study-layout {
+/* ✅ Modern / Context syntax */
+@media (width <= 900px) {  .case-study-layout {
     display: block;
   }
 
