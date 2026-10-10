@@ -65,8 +65,7 @@
   font-size: 18px;
 }
 
-/* Mobile & Tablet Styles */
-/* ✅ Modern / Context syntax */
+
 @media (width <= 900px) {  .case-study-layout {
     display: block;
   }
@@ -99,7 +98,7 @@
 
   .case-study-nav-link.active {
     background: #d83b2d;
-    color: #ffffff;
+    color: #fff;
   }
 
   /* Reduce scroll offset since sidebar is no longer sticky */
