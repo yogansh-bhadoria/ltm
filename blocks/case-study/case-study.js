@@ -91,6 +91,8 @@ function createNavItem(title, sectionId) {
 }
 
 function observeSections(nav, sections) {
+  if (!sections.length) return;
+
   if (!('IntersectionObserver' in window)) {
     setActiveLink(nav, sections[0].id);
     return;
@@ -150,4 +152,16 @@ export default function decorate(block) {
 
     navList.append(createNavItem(title, sectionId));
     mainContent.append(section);
-    sections.push
+    sections.push(section);
+  });
+
+  if (!sections.length) return;
+
+  nav.append(navList);
+  aside.append(nav);
+  layout.append(aside, mainContent);
+
+  block.replaceChildren(layout);
+
+  observeSections(nav, sections);
+}
