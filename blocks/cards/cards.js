@@ -1,7 +1,56 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
-export default function decorate(block) {
-  /* change to ul, li */
+export default async function decorate(block) {
+  // Check if this block is set to query mode: | Cards (query) |
+  const isQuery = block.classList.contains('query');
+
+  if (isQuery) {
+    // 1. Fetch query-index.json
+    const response = await fetch('/query-index.json');
+    if (!response.ok) return;
+
+    const json = await response.json();
+    const allPages = json.data || [];
+
+    // 2. Filter out index page itself and take up to 10 pages
+    // (Adjust the filter if your 10 pages live under a specific folder like /blog/)
+    const pagesToShow = allPages
+      .filter((page) => page.path !== window.location.pathname)
+      .slice(0, 10);
+
+    // 3. Generate the Cards HTML structure
+    const ul = document.createElement('ul');
+
+    pagesToShow.forEach((page) => {
+      const li = document.createElement('li');
+
+      // Card Image
+      const imageDiv = document.createElement('div');
+      imageDiv.className = 'cards-card-image';
+      if (page.image) {
+        const picture = createOptimizedPicture(page.image, page.title, false, [{ width: '750' }]);
+        imageDiv.append(picture);
+      }
+
+      // Card Content (Title, Description, Link)
+      const bodyDiv = document.createElement('div');
+      bodyDiv.className = 'cards-card-body';
+      bodyDiv.innerHTML = `
+        <h3><a href="${page.path}">${page.title}</a></h3>
+        <p>${page.description || ''}</p>
+      `;
+
+      li.append(imageDiv, bodyDiv);
+      ul.append(li);
+    });
+
+    // Replace whatever was inside the block table with our cards list
+    block.textContent = '';
+    block.append(ul);
+    return;
+  }
+
+  // --- STANDARD BOILERPLATE BEHAVIOR (For manual cards) ---
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
@@ -13,5 +62,6 @@ export default function decorate(block) {
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
-  block.replaceChildren(ul);
+  block.textContent = '';
+  block.append(ul);
 }
