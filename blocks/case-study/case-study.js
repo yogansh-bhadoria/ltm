@@ -171,6 +171,28 @@ function observeSections(nav, sections) {
   });
 }
 
+function moveFollowingTestimonial(block, mainContent) {
+  const testimonials = [...document.querySelectorAll('.testimonial')];
+
+  const testimonial = testimonials.find(
+    (item) => (
+      /* eslint-disable-next-line no-bitwise */
+      block.compareDocumentPosition(item) & Node.DOCUMENT_POSITION_FOLLOWING
+    ),
+  );
+
+  if (!testimonial) return;
+
+  const testimonialWrapper = testimonial.closest('.testimonial-wrapper');
+  const elementToMove = testimonialWrapper || testimonial;
+
+  const testimonialContainer = document.createElement('div');
+  testimonialContainer.className = 'case-study-testimonial';
+
+  testimonialContainer.append(elementToMove);
+  mainContent.append(testimonialContainer);
+}
+
 export default function decorate(block) {
   const rows = [...block.children];
 
@@ -213,6 +235,7 @@ export default function decorate(block) {
   layout.append(aside, mainContent);
 
   block.replaceChildren(layout);
+  moveFollowingTestimonial(block, mainContent);
 
   observeSections(nav, sections);
 
