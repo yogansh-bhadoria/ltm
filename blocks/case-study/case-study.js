@@ -121,29 +121,23 @@ function observeSections(nav, sections) {
 }
 
 function moveFollowingTestimonial(block, mainContent) {
-  const currentSection = block.closest('.section');
+  const testimonials = [...document.querySelectorAll('.testimonial')];
 
-  if (!currentSection) return;
-
-  let followingSection = currentSection.nextElementSibling;
-
-  while (followingSection && !followingSection.textContent.trim()) {
-    followingSection = followingSection.nextElementSibling;
-  }
-
-  const testimonial = followingSection?.querySelector('.testimonial');
+  const testimonial = testimonials.find(
+    (item) => block.compareDocumentPosition(item)
+      & Node.DOCUMENT_POSITION_FOLLOWING,
+  );
 
   if (!testimonial) return;
+
+  const testimonialWrapper = testimonial.closest('.testimonial-wrapper');
+  const elementToMove = testimonialWrapper || testimonial;
 
   const testimonialContainer = document.createElement('div');
   testimonialContainer.className = 'case-study-testimonial';
 
-  testimonialContainer.append(testimonial);
+  testimonialContainer.append(elementToMove);
   mainContent.append(testimonialContainer);
-
-  if (!followingSection.textContent.trim()) {
-    followingSection.remove();
-  }
 }
 
 export default function decorate(block) {
