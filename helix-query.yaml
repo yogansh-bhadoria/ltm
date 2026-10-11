@@ -3,7 +3,10 @@ version: 1
 indices:
   default:
     target: /query-index.json
-    source: /**
+    include:
+      - '/**'
+    exclude:
+      - '/**.json'
     properties:
       title:
         select: head > meta[property="og:title"]
