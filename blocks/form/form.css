@@ -221,6 +221,24 @@ select.form-control {
   color: #ffb4ad;
 }
 
+.form-container {
+  max-width: none;
+  padding: 0;
+}
+
+.form-wrapper {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+}
+
+.form-container .default-content-wrapper,
+.form-container > div {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+}
+
 @media (width <= 768px) {
   .form {
     padding: 52px 20px;
