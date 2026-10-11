@@ -124,8 +124,10 @@ function moveFollowingTestimonial(block, mainContent) {
   const testimonials = [...document.querySelectorAll('.testimonial')];
 
   const testimonial = testimonials.find(
-    (item) => block.compareDocumentPosition(item)
-      & Node.DOCUMENT_POSITION_FOLLOWING,
+    (item) => (
+      /* eslint-disable-next-line no-bitwise */
+      block.compareDocumentPosition(item) & Node.DOCUMENT_POSITION_FOLLOWING
+    ),
   );
 
   if (!testimonial) return;
