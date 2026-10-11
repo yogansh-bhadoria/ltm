@@ -4,7 +4,19 @@
   gap: 64px;
   align-items: start;
 }
+.case-study-testimonial {
+  margin-top: 24px;
+}
 
+.case-study-testimonial .testimonial-wrapper {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.case-study-testimonial .testimonial {
+  margin: 0;
+}
 .case-study-aside {
   position: sticky;
   top: 120px;
@@ -106,3 +118,5 @@
     scroll-margin-top: 24px;
   }
 }
+
+
