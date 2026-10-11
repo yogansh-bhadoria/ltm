@@ -141,7 +141,7 @@ header .nav-tools p em {
   color: #f1f1f1;
   max-width: 110px;
   display: inline-block;
-  border-left: 1px solid rgb(255, 255, 255, 40%);
+  border-left: 1px solid rgb(255 255 255 / 40%);
   padding-left: 10px;
 }
 
