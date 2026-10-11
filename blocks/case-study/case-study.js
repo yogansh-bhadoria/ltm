@@ -62,7 +62,7 @@ function createContentSection(row, index) {
    * The content cell may already contain the same heading entered in DA.
    * Remove it before creating the section heading so it does not appear twice.
    */
-  removeDuplicateHeading(contentCell, title);
+  // removeDuplicateHeading(contentCell, title);
 
   const section = document.createElement('section');
   section.className = 'case-study-section';
