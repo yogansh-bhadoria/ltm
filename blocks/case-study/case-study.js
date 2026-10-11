@@ -23,27 +23,27 @@ function setActiveLink(nav, sectionId) {
   });
 }
 
-function removeDuplicateHeading(contentCell, title) {
-  const firstElement = contentCell.firstElementChild;
+// function removeDuplicateHeading(contentCell, title) {
+//   const firstElement = contentCell.firstElementChild;
 
-  if (!firstElement) return;
+//   if (!firstElement) return;
 
-  const isHeading = /^H[1-6]$/.test(firstElement.tagName);
+//   const isHeading = /^H[1-6]$/.test(firstElement.tagName);
 
-  const headingText = firstElement.textContent
-    .trim()
-    .replace(/\s+/g, ' ')
-    .toLowerCase();
+//   const headingText = firstElement.textContent
+//     .trim()
+//     .replace(/\s+/g, ' ')
+//     .toLowerCase();
 
-  const titleText = title
-    .trim()
-    .replace(/\s+/g, ' ')
-    .toLowerCase();
+//   const titleText = title
+//     .trim()
+//     .replace(/\s+/g, ' ')
+//     .toLowerCase();
 
-  if (isHeading && headingText === titleText) {
-    firstElement.remove();
-  }
-}
+//   if (isHeading && headingText === titleText) {
+//     firstElement.remove();
+//   }
+// }
 
 function createContentSection(row, index) {
   const cells = [...row.children];
