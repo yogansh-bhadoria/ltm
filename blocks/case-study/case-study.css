@@ -4,6 +4,7 @@
   gap: 64px;
   align-items: start;
 }
+
 .case-study-testimonial {
   margin-top: 24px;
 }
@@ -17,6 +18,7 @@
 .case-study-testimonial .testimonial {
   margin: 0;
 }
+
 .case-study-aside {
   position: sticky;
   top: 120px;
