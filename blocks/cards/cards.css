@@ -49,7 +49,7 @@
   flex-grow: 1;
 }
 
-/* Base style for card paragraphs (Description Text) */
+/* Description Text (all regular paragraphs default to dark text) */
 .cards .cards-card-body p {
   margin: 0;
   color: #111;
@@ -59,11 +59,19 @@
   max-width: 280px;
 }
 
-/* Big Stat: Headings first, then p:first-child */
+/* Heading fallback if authored as h2 or h3 */
 .cards .cards-card-body h2,
-.cards .cards-card-body h3,
-.cards .cards-card-body strong,
-.cards .cards-card-body p:first-child {
+.cards .cards-card-body h3 {
+  margin: 0 0 20px;
+  color: #ea624b;
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+/* Stat Number (When authored as two cells in DA) */
+.cards > ul > li > div:first-child:not(:last-child) p {
   margin: 0 0 20px;
   color: #ea624b; /* Coral stat color */
   font-size: 2.75rem; /* ~44px bold number */
@@ -72,9 +80,19 @@
   letter-spacing: -0.5px;
 }
 
-/* Stat links: h3 a first, then p:first-child a */
-.cards .cards-card-body h3 a,
-.cards .cards-card-body p:first-child a {
+/* Stat Number (When authored inside a single cell in DA) */
+.cards > ul > li > div:only-child > p:first-child {
+  margin: 0 0 20px;
+  color: #ea624b;
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+/* Links inside the stat number */
+.cards > ul > li > div:first-child:not(:last-child) a,
+.cards > ul > li > div:only-child > p:first-child a {
   color: #ea624b;
   text-decoration: none;
 }
