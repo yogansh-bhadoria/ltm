@@ -120,6 +120,32 @@ function observeSections(nav, sections) {
   sections.forEach((section) => observer.observe(section));
 }
 
+function moveFollowingTestimonial(block, mainContent) {
+  const currentSection = block.closest('.section');
+
+  if (!currentSection) return;
+
+  let followingSection = currentSection.nextElementSibling;
+
+  while (followingSection && !followingSection.textContent.trim()) {
+    followingSection = followingSection.nextElementSibling;
+  }
+
+  const testimonial = followingSection?.querySelector('.testimonial');
+
+  if (!testimonial) return;
+
+  const testimonialContainer = document.createElement('div');
+  testimonialContainer.className = 'case-study-testimonial';
+
+  testimonialContainer.append(testimonial);
+  mainContent.append(testimonialContainer);
+
+  if (!followingSection.textContent.trim()) {
+    followingSection.remove();
+  }
+}
+
 export default function decorate(block) {
   const rows = [...block.children];
 
@@ -162,6 +188,7 @@ export default function decorate(block) {
   layout.append(aside, mainContent);
 
   block.replaceChildren(layout);
+  moveFollowingTestimonial(block, mainContent);
 
   observeSections(nav, sections);
 }
