@@ -9,7 +9,7 @@ header {
   z-index: 1000;
 }
 
-header nav#nav {
+header nav {
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -37,10 +37,9 @@ header .nav-brand p {
   line-height: 1;
 }
 
-/* LTM Logo text/styling */
 header .nav-brand p,
 header .nav-brand a {
-  color: #ea624b; /* Distinct LTM coral */
+  color: #ea624b;
   font-size: 32px;
   font-weight: 800;
   letter-spacing: -0.5px;
@@ -55,7 +54,7 @@ header .nav-brand img {
 }
 
 /* =========================================
-   2. SECTIONS (CENTER LINKS)
+   2. SECTIONS & TOOLS (BASE LINKS)
    ========================================= */
 header .nav-sections {
   flex: 1;
@@ -88,26 +87,6 @@ header .nav-sections a {
   white-space: nowrap;
 }
 
-header .nav-sections a:hover {
-  opacity: 0.8;
-}
-
-/* Dropdown arrow on menu items (except Careers) */
-header .nav-sections li:not(:last-child) a::after {
-  content: '';
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-right: 2px solid #fff;
-  border-bottom: 2px solid #fff;
-  transform: rotate(45deg);
-  margin-left: 4px;
-  margin-bottom: 2px;
-}
-
-/* =========================================
-   3. TOOLS (RIGHT - L&T + CONTACT)
-   ========================================= */
 header .nav-tools {
   display: flex;
   align-items: center;
@@ -125,7 +104,6 @@ header .nav-tools p {
   white-space: nowrap;
 }
 
-/* L&T Co-Branding text divider */
 header .nav-tools p::before {
   content: '';
   display: inline-block;
@@ -134,7 +112,7 @@ header .nav-tools p::before {
   margin: 0 12px;
 }
 
-/* Contact button if authored as link */
+/* Placed before :hover to satisfy Stylelint descending specificity */
 header .nav-tools a {
   border: 1.5px solid #fff;
   border-radius: 9999px;
@@ -147,25 +125,41 @@ header .nav-tools a {
   transition: all 0.2s ease;
 }
 
+/* =========================================
+   HOVER & PSEUDO-ELEMENTS
+   ========================================= */
+header .nav-sections a:hover {
+  opacity: 0.8;
+}
+
 header .nav-tools a:hover {
   background-color: #fff;
   color: #000;
 }
 
-/* =========================================
-   RESPONSIVE (DESKTOP VS MOBILE)
-   ========================================= */
+header .nav-sections li:not(:last-child) a::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
+  margin-left: 4px;
+  margin-bottom: 2px;
+}
 
-/* Hide mobile hamburger on desktop */
+/* =========================================
+   RESPONSIVE
+   ========================================= */
 @media (width >= 900px) {
   header .nav-hamburger {
     display: none !important;
   }
 }
 
-/* Mobile View */
-@media (width <= 899px) {
-  header nav#nav {
+@media (width < 900px) {
+  header nav {
     height: 64px;
     padding: 0 16px;
   }
@@ -209,8 +203,7 @@ header .nav-tools a:hover {
     display: none;
   }
 
-  /* When expanded on mobile */
-  header nav#nav[aria-expanded="true"] .nav-sections {
+  header nav[aria-expanded="true"] .nav-sections {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -221,7 +214,7 @@ header .nav-tools a:hover {
     padding: 24px;
   }
 
-  header nav#nav[aria-expanded="true"] .nav-sections ul {
+  header nav[aria-expanded="true"] .nav-sections ul {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
