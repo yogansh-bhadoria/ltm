@@ -11,9 +11,10 @@ header {
 
 header nav {
   box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex !important;
+  flex-flow: row nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
   width: 100%;
   max-width: 1440px;
   height: 76px;
@@ -26,9 +27,10 @@ header nav {
    1. BRAND (LEFT)
    ========================================= */
 header .nav-brand {
+  flex: 0 0 auto !important;
+  width: auto !important;
   display: flex;
   align-items: center;
-  flex-shrink: 0;
 }
 
 header .nav-brand p {
@@ -54,16 +56,18 @@ header .nav-brand img {
 }
 
 /* =========================================
-   2. SECTIONS & TOOLS (BASE LINKS)
+   2. SECTIONS (CENTER LINKS)
    ========================================= */
 header .nav-sections {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+  flex: 1 1 auto !important;
+  width: auto !important; /* Prevents pushing tools to next row */
+  display: flex !important;
+  justify-content: center !important;
 }
 
 header .nav-sections ul {
-  display: flex;
+  display: flex !important;
+  flex-direction: row !important;
   align-items: center;
   gap: 28px;
   list-style: none;
@@ -87,10 +91,15 @@ header .nav-sections a {
   white-space: nowrap;
 }
 
+/* =========================================
+   3. TOOLS (RIGHT - L&T + CONTACT)
+   ========================================= */
 header .nav-tools {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
 }
 
 header .nav-tools p {
@@ -112,7 +121,6 @@ header .nav-tools p::before {
   margin: 0 12px;
 }
 
-/* Placed before :hover to satisfy Stylelint descending specificity */
 header .nav-tools a {
   border: 1.5px solid #fff;
   border-radius: 9999px;
@@ -126,7 +134,7 @@ header .nav-tools a {
 }
 
 /* =========================================
-   HOVER & PSEUDO-ELEMENTS
+   HOVER & CHEVRONS
    ========================================= */
 header .nav-sections a:hover {
   opacity: 0.8;
@@ -203,13 +211,15 @@ header .nav-sections li:not(:last-child) a::after {
     display: none;
   }
 
+  header nav[aria-expanded="true"] {
+    flex-wrap: wrap !important;
+    height: auto;
+  }
+
   header nav[aria-expanded="true"] .nav-sections {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
-    position: absolute;
-    top: 64px;
-    left: 0;
-    width: 100%;
+    width: 100% !important;
     background-color: #000;
     padding: 24px;
   }
