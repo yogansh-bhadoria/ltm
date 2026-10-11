@@ -23,6 +23,28 @@ function setActiveLink(nav, sectionId) {
   });
 }
 
+function removeDuplicateHeading(contentCell, title) {
+  const firstElement = contentCell.firstElementChild;
+
+  if (!firstElement) return;
+
+  const isHeading = /^H[1-6]$/.test(firstElement.tagName);
+
+  const headingText = firstElement.textContent
+    .trim()
+    .replace(/\s+/g, ' ')
+    .toLowerCase();
+
+  const titleText = title
+    .trim()
+    .replace(/\s+/g, ' ')
+    .toLowerCase();
+
+  if (isHeading && headingText === titleText) {
+    firstElement.remove();
+  }
+}
+
 function createContentSection(row, index) {
   const cells = [...row.children];
 
@@ -36,6 +58,12 @@ function createContentSection(row, index) {
 
   const sectionId = createId(title, index);
 
+  /*
+   * The content cell may already contain the same heading entered in DA.
+   * Remove it before creating the section heading so it does not appear twice.
+   */
+  removeDuplicateHeading(contentCell, title);
+
   const section = document.createElement('section');
   section.className = 'case-study-section';
   section.id = sectionId;
@@ -47,6 +75,10 @@ function createContentSection(row, index) {
   const body = document.createElement('div');
   body.className = 'case-study-body';
 
+  /*
+   * Move all remaining authored content from the table cell
+   * into the new section body.
+   */
   while (contentCell.firstChild) {
     body.append(contentCell.firstChild);
   }
@@ -77,10 +109,26 @@ function createNavItem(title, sectionId) {
 
     if (!section) return;
 
-    section.scrollIntoView({
+    /*
+     * Calculate the section's absolute position on the page.
+     * Using window.scrollTo() prevents the aside panel from becoming
+     * the element that receives the scrolling.
+     */
+    const headerOffset = 100;
+
+    const sectionPosition = section.getBoundingClientRect().top
+      + window.scrollY
+      - headerOffset;
+
+    window.scrollTo({
+      top: sectionPosition,
       behavior: 'smooth',
-      block: 'start',
     });
+
+    setActiveLink(
+      link.closest('.case-study-nav'),
+      sectionId,
+    );
 
     window.history.replaceState(null, '', `#${sectionId}`);
   });
@@ -112,34 +160,15 @@ function observeSections(nav, sections) {
       }
     },
     {
+      root: null,
       rootMargin: '-20% 0px -65% 0px',
       threshold: [0, 0.1, 0.25],
     },
   );
 
-  sections.forEach((section) => observer.observe(section));
-}
-
-function moveFollowingTestimonial(block, mainContent) {
-  const testimonials = [...document.querySelectorAll('.testimonial')];
-
-  const testimonial = testimonials.find(
-    (item) => (
-      /* eslint-disable-next-line no-bitwise */
-      block.compareDocumentPosition(item) & Node.DOCUMENT_POSITION_FOLLOWING
-    ),
-  );
-
-  if (!testimonial) return;
-
-  const testimonialWrapper = testimonial.closest('.testimonial-wrapper');
-  const elementToMove = testimonialWrapper || testimonial;
-
-  const testimonialContainer = document.createElement('div');
-  testimonialContainer.className = 'case-study-testimonial';
-
-  testimonialContainer.append(elementToMove);
-  mainContent.append(testimonialContainer);
+  sections.forEach((section) => {
+    observer.observe(section);
+  });
 }
 
 export default function decorate(block) {
@@ -184,7 +213,8 @@ export default function decorate(block) {
   layout.append(aside, mainContent);
 
   block.replaceChildren(layout);
-  moveFollowingTestimonial(block, mainContent);
 
   observeSections(nav, sections);
+
+  setActiveLink(nav, sections[0].id);
 }
