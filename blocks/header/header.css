@@ -1,6 +1,6 @@
 /* Header Wrapper */
 header .header {
-  background-color: #000000;
+  background-color: #000;
   width: 100%;
   position: sticky;
   top: 0;
@@ -16,7 +16,7 @@ header nav#nav {
   height: 76px;
   margin: 0 auto;
   padding: 0 32px;
-  color: #ffffff;
+  color: #fff;
   font-family: var(--body-font-family, sans-serif);
 }
 
@@ -67,7 +67,7 @@ header .nav-sections li {
 }
 
 header .nav-sections a {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
   font-size: 15px;
   font-weight: 600;
@@ -88,8 +88,8 @@ header .nav-sections li:not(:last-child) > a::after {
   display: inline-block;
   width: 7px;
   height: 7px;
-  border-right: 2px solid #ffffff;
-  border-bottom: 2px solid #ffffff;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
   transform: rotate(45deg);
   margin-left: 4px;
   margin-bottom: 3px;
@@ -141,7 +141,7 @@ header .nav-tools p em {
   color: #f1f1f1;
   max-width: 110px;
   display: inline-block;
-  border-left: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 1px solid rgb(255, 255, 255, 0.4);
   padding-left: 10px;
 }
 
@@ -149,10 +149,10 @@ header .nav-tools p em {
 header .nav-tools .button-container a,
 header .nav-tools a.button,
 header .nav-tools p > a:last-of-type {
-  border: 1.5px solid #ffffff;
+  border: 1.5px solid #fff;
   border-radius: 9999px;
   background-color: transparent;
-  color: #ffffff;
+  color: #fff;
   padding: 8px 24px;
   font-size: 14px;
   font-weight: 600;
@@ -164,14 +164,14 @@ header .nav-tools p > a:last-of-type {
 header .nav-tools .button-container a:hover,
 header .nav-tools a.button:hover,
 header .nav-tools p > a:last-of-type:hover {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #fff;
+  color: #000;
 }
 
 /* ===============================
    4. Mobile Responsiveness
    =============================== */
-@media (max-width: 992px) {
+@media (width: 992px) {
   header nav#nav {
     height: 64px;
     padding: 0 20px;
@@ -188,7 +188,7 @@ header .nav-tools p > a:last-of-type:hover {
     top: 64px;
     left: 0;
     width: 100%;
-    background-color: #000000;
+    background-color: #000;
     padding: 24px;
     box-sizing: border-box;
   }
@@ -217,7 +217,7 @@ header .nav-tools p > a:last-of-type:hover {
     display: block;
     width: 22px;
     height: 2px;
-    background: #ffffff;
+    background: #fff;
     position: relative;
     transition: transform 0.2s;
   }
@@ -235,7 +235,7 @@ header .nav-tools p > a:last-of-type:hover {
   }
 }
 
-@media (min-width: 993px) {
+@media (width: 993px) {
   header .nav-hamburger {
     display: none;
   }
