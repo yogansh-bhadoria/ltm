@@ -43,10 +43,6 @@ function createFieldWrapper(row) {
     button.className = 'form-submit';
     button.type = 'submit';
 
-    // Store custom endpoint/redirect if authored in Value or Options column
-    const actionUrl = getValue(row, 'Value', 'Action', 'Options');
-    if (actionUrl) button.dataset.action = actionUrl;
-
     const buttonText = document.createElement('span');
     buttonText.textContent = labelText || placeholder || 'Submit';
 
@@ -163,30 +159,30 @@ function getSpreadsheetPath(block) {
   }
 }
 
+// Automatically construct the EDS Form submission endpoint for the incoming sheet
+function getFormEndpoint(spreadsheetPath) {
+  const host = window.location.hostname;
+  if (host.includes('.aem.page') || host.includes('.hlx.page') || host.includes('.aem.live')) {
+    const [branch, repo, owner] = host.split('.')[0].split('--');
+    return `https://admin.hlx.page/form/${owner}/${repo}/${branch}${spreadsheetPath}.json`;
+  }
+  // Default fallback for your repository
+  return `https://admin.hlx.page/form/yogansh-bhadoria/ltm/main${spreadsheetPath}.json`;
+}
+
 async function loadFormDefinition(path) {
   const response = await fetch(`${path}.json`);
   if (!response.ok) throw new Error(`Unable to load form definition: ${response.status}`);
 
   const json = await response.json();
 
-  // Multi-sheet format handling (with config sheet)
-  const configSheet = json.config || json.settings;
-  const config = {};
-  if (configSheet && Array.isArray(configSheet.data)) {
-    configSheet.data.forEach((row) => {
-      const key = String(row.Key || row.key || '').trim().toLowerCase();
-      const val = row.Value || row.value || '';
-      if (key) config[key] = val;
-    });
-  }
-
-  const rows = Array.isArray(json.data) ? json.data : (json.form?.data || json[json[':names']?.[0]]?.data || []);
+  // If multi-sheet workbook, load from "data" sheet; otherwise default data array
+  const rows = json.data || json[json[':names']?.[0]]?.data || [];
 
   return {
     rows,
-    action: config.action || json.action || '',
-    method: config.method || json.method || 'POST',
-    redirect: config.redirect || json.redirect || '/thank-you', // Default incoming page
+    action: getFormEndpoint(path),
+    method: 'POST',
   };
 }
 
@@ -208,8 +204,7 @@ async function submitForm(event) {
 
   const form = event.currentTarget;
   const submitButton = form.querySelector('.form-submit');
-  const endpoint = form.dataset.action || submitButton?.dataset.action;
-  const redirectUrl = form.dataset.redirect;
+  const endpoint = form.dataset.action;
 
   if (!form.reportValidity()) return;
 
@@ -222,34 +217,28 @@ async function submitForm(event) {
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
 
+    // Checkboxes
     form.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
       if (checkbox.name) payload[checkbox.name] = checkbox.checked;
     });
 
-    // 1. Post to backend endpoint if configured
-    if (endpoint) {
-      const response = await fetch(endpoint, {
-        method: form.dataset.method || 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+    // IMPORTANT: EDS Form ingestion requires wrapping payload in { data: payload }
+    const response = await fetch(endpoint, {
+      method: form.dataset.method || 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data: payload }),
+    });
 
-      if (!response.ok) throw new Error(`Submission failed: ${response.status}`);
-    }
-
-    // 2. SAVE DATA TO SESSION STORAGE FOR THE INCOMING PAGE
-    sessionStorage.setItem('submittedFormData', JSON.stringify(payload));
-
-    // 3. REDIRECT TO INCOMING PAGE
-    if (redirectUrl) {
-      window.location.href = redirectUrl;
-      return;
+    if (!response.ok) {
+      throw new Error(`Submission failed: ${response.status}`);
     }
 
     form.reset();
-    showStatus(form, 'Thank you. Your request has been submitted successfully.', 'success');
+    showStatus(form, 'Form submitted successfully.', 'success');
   } catch {
-    showStatus(form, 'We could not submit your request. Please try again.', 'error');
+    showStatus(form, 'Could not submit the form. Please try again.', 'error');
   } finally {
     if (submitButton) {
       submitButton.disabled = false;
@@ -289,7 +278,6 @@ export default async function decorate(block) {
     form.noValidate = false;
     form.dataset.action = definition.action;
     form.dataset.method = definition.method;
-    form.dataset.redirect = definition.redirect;
 
     const fields = document.createElement('div');
     fields.className = 'contact-form-fields';
