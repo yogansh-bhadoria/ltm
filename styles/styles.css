@@ -326,6 +326,8 @@ main > .section:first-of-type {
 
 .dark-section{
     background-color:#000;
+    margin-top:5px;
+    margin-bottom:5px;
 }
 
 .dark-section h1,
