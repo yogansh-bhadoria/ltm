@@ -146,6 +146,15 @@ main > div {
   margin: 40px 16px;
 }
 
+.center-heading h1,
+.center-heading h2,
+.center-heading h3,
+.center-heading h4,
+.center-heading h5,
+.center-heading h6{
+  text-align: center;
+}
+
 input,
 textarea,
 select,
