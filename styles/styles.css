@@ -37,7 +37,7 @@
   --heading-font-size-xs: 22px;
 
   /* nav height */
-  --nav-height: 64px;
+  --nav-height: 76px;
 }
 
 /* fallback fonts */
@@ -86,6 +86,11 @@ body.appear {
 
 header {
   height: var(--nav-height);
+  background-color: #000;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
 }
 
 header .header,
