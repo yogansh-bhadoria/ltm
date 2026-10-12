@@ -324,6 +324,18 @@ main > .section:first-of-type {
   margin-top: 0;
 }
 
+.dark-section h1,
+.dark-section h2,
+.dark-section h3,
+.dark-section h4 {
+  color: #fff;
+}
+
+.dark-section p {
+  color: #fff;
+}
+
+
 @media (width >= 900px) {
   main > .section > div {
     padding: 0 32px;
