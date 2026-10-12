@@ -1,6 +1,15 @@
 /* =========================================
    NAVBAR CONTAINER
    ========================================= */
+header {
+  background-color: #000;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 76px;
+}
+
 header .header {
   height: 100%;
 }
@@ -8,7 +17,8 @@ header .header {
 header nav {
   box-sizing: border-box;
   display: flex !important;
-  flex-flow: row nowrap !important; /* Strictly forbids wrapping */
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
   align-items: center !important;
   justify-content: space-between !important;
   width: 100%;
@@ -36,11 +46,12 @@ header .nav-brand p {
 
 header .nav-brand p,
 header .nav-brand a {
-  color: #ea624b; /* Coral logo */
+  color: #ea624b; /* Distinct LTM coral */
   font-size: 32px;
   font-weight: 800;
   letter-spacing: -0.5px;
   text-decoration: none;
+  font-family: inherit;
 }
 
 header .nav-brand img {
@@ -114,7 +125,7 @@ header .nav-tools p::before {
   margin: 0 12px;
 }
 
-/* Contact button */
+/* Pill Contact button */
 header .nav-tools a {
   border: 1.5px solid #fff;
   border-radius: 9999px;
@@ -152,7 +163,7 @@ header .nav-sections li:not(:last-child) a::after {
 }
 
 /* =========================================
-   MOBILE
+   RESPONSIVE
    ========================================= */
 @media (width >= 900px) {
   header .nav-hamburger {
