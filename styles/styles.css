@@ -343,8 +343,8 @@ main > .section:first-of-type {
   color: #fff;
 }
 
-.form {
-    background-color:#000 ;
+.form-section {
+    background-color:#1b1b1b ;
 }
 
 @media (width >= 900px) {
