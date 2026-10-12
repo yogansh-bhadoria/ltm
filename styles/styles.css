@@ -341,6 +341,10 @@ main > .section:first-of-type {
   color: #fff;
 }
 
+.form {
+    background-color:#000;
+}
+
 
 @media (width >= 900px) {
   main > .section > div {
