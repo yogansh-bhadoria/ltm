@@ -164,7 +164,6 @@ header .nav-sections li:not(:last-child) a::after {
   width: 6px;
   height: 6px;
   border-right: 2px solid #fff;
-  border-bottom: 2px solid #fff;
   transform: rotate(45deg);
   margin-left: 4px;
   margin-bottom: 2px;
