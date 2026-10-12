@@ -324,10 +324,16 @@ main > .section:first-of-type {
   margin-top: 0;
 }
 
+.dark-section{
+    background-color:#000;
+}
+
 .dark-section h1,
 .dark-section h2,
 .dark-section h3,
-.dark-section h4 {
+.dark-section h4,
+.dark-section h5,
+.dark-section h6{
   color: #fff;
 }
 
