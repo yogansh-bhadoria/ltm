@@ -147,37 +147,59 @@ function createFieldWrapper(row) {
 
 function getSpreadsheetPath(block) {
   const link = block.querySelector('a');
-  if (link) return new URL(link.href).pathname.replace(/\.json$/, '');
+  if (link) {
+    return new URL(link.href, window.location.origin).pathname.replace(/\.json$/, '');
+  }
 
   const value = block.textContent.trim();
   if (!value) return '';
 
-  try {
-    return new URL(value, window.location.origin).pathname.replace(/\.json$/, '');
-  } catch {
-    return value.replace(/\.json$/, '');
-  }
+  const cleanPath = value.replace(/\.json$/, '');
+  return cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
 }
 
-// Automatically construct the EDS Form submission endpoint for the incoming sheet
+// Safely extracts rows whether sheet is single-sheet or multi-sheet
+function extractFormRows(json) {
+  if (Array.isArray(json.data)) {
+    return json.data;
+  }
+
+  if (json.data && Array.isArray(json.data.data)) {
+    return json.data.data;
+  }
+
+  if (Array.isArray(json[':names'])) {
+    for (const name of json[':names']) {
+      if (name.toLowerCase() !== 'incoming' && Array.isArray(json[name]?.data)) {
+        return json[name].data;
+      }
+    }
+  }
+
+  return [];
+}
+
 function getFormEndpoint(spreadsheetPath) {
   const host = window.location.hostname;
-  if (host.includes('.aem.page') || host.includes('.hlx.page') || host.includes('.aem.live')) {
+  if (host.includes('--')) {
     const [branch, repo, owner] = host.split('.')[0].split('--');
     return `https://admin.hlx.page/form/${owner}/${repo}/${branch}${spreadsheetPath}.json`;
   }
-  // Default fallback for your repository
   return `https://admin.hlx.page/form/yogansh-bhadoria/ltm/main${spreadsheetPath}.json`;
 }
 
 async function loadFormDefinition(path) {
   const response = await fetch(`${path}.json`);
-  if (!response.ok) throw new Error(`Unable to load form definition: ${response.status}`);
+  if (!response.ok) {
+    throw new Error(`Unable to load form definition: ${response.status}`);
+  }
 
   const json = await response.json();
+  const rows = extractFormRows(json);
 
-  // If multi-sheet workbook, load from "data" sheet; otherwise default data array
-  const rows = json.data || json[json[':names']?.[0]]?.data || [];
+  if (!rows.length) {
+    throw new Error('No form fields found in the spreadsheet.');
+  }
 
   return {
     rows,
@@ -217,12 +239,11 @@ async function submitForm(event) {
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
 
-    // Checkboxes
     form.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
       if (checkbox.name) payload[checkbox.name] = checkbox.checked;
     });
 
-    // IMPORTANT: EDS Form ingestion requires wrapping payload in { data: payload }
+    // EDS Form ingestion requires wrapping payload in { data: payload }
     const response = await fetch(endpoint, {
       method: form.dataset.method || 'POST',
       headers: {
@@ -236,8 +257,10 @@ async function submitForm(event) {
     }
 
     form.reset();
-    showStatus(form, 'Form submitted successfully.', 'success');
-  } catch {
+    showStatus(form, 'Form submitted successfully! Your data was recorded.', 'success');
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('Submission error:', err);
     showStatus(form, 'Could not submit the form. Please try again.', 'error');
   } finally {
     if (submitButton) {
@@ -291,7 +314,9 @@ export default async function decorate(block) {
     form.addEventListener('submit', submitForm);
 
     loading.replaceWith(form);
-  } catch {
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('Form load error:', err);
     loading.textContent = 'The contact form could not be loaded.';
     loading.classList.add('contact-form-error');
   }
