@@ -3,9 +3,7 @@ function toBoolean(value) {
 }
 
 function normaliseWidth(value) {
-  return String(value).trim().toLowerCase() === 'half'
-    ? 'half'
-    : 'full';
+  return String(value).trim().toLowerCase() === 'half' ? 'half' : 'full';
 }
 
 function getValue(row, ...keys) {
@@ -21,7 +19,6 @@ function getValue(row, ...keys) {
 
 function createFieldWrapper(row) {
   const type = String(getValue(row, 'Type')).trim().toLowerCase();
-
   if (!type) return null;
 
   const name = String(getValue(row, 'Name')).trim();
@@ -37,7 +34,6 @@ function createFieldWrapper(row) {
     const paragraph = document.createElement('p');
     paragraph.className = `form-content form-content-${name || 'text'}`;
     paragraph.textContent = placeholder || labelText;
-
     wrapper.append(paragraph);
     return wrapper;
   }
@@ -47,17 +43,20 @@ function createFieldWrapper(row) {
     button.className = 'form-submit';
     button.type = 'submit';
 
+    // Store custom endpoint/redirect if authored in Value or Options column
+    const actionUrl = getValue(row, 'Value', 'Action', 'Options');
+    if (actionUrl) button.dataset.action = actionUrl;
+
     const buttonText = document.createElement('span');
     buttonText.textContent = labelText || placeholder || 'Submit';
 
     const arrow = document.createElement('span');
     arrow.className = 'form-submit-arrow';
     arrow.setAttribute('aria-hidden', 'true');
-    arrow.textContent = '↗';
+    arrow.textContent = ' ↗';
 
     button.append(buttonText, arrow);
     wrapper.append(button);
-
     return wrapper;
   }
 
@@ -71,9 +70,7 @@ function createFieldWrapper(row) {
     input.name = name;
     input.required = required;
 
-    if (required) {
-      input.setAttribute('aria-required', 'true');
-    }
+    if (required) input.setAttribute('aria-required', 'true');
 
     const visibleText = document.createElement('span');
     visibleText.className = 'form-checkbox-text';
@@ -89,7 +86,6 @@ function createFieldWrapper(row) {
 
     checkboxLabel.append(input, visibleText);
     wrapper.append(checkboxLabel);
-
     return wrapper;
   }
 
@@ -105,16 +101,13 @@ function createFieldWrapper(row) {
     select.name = name;
     select.required = required;
 
-    if (required) {
-      select.setAttribute('aria-required', 'true');
-    }
+    if (required) select.setAttribute('aria-required', 'true');
 
     const placeholderOption = document.createElement('option');
     placeholderOption.value = '';
     placeholderOption.textContent = placeholder || labelText;
     placeholderOption.disabled = true;
     placeholderOption.selected = true;
-
     select.append(placeholderOption);
 
     const options = String(getValue(row, 'Options'))
@@ -143,9 +136,7 @@ function createFieldWrapper(row) {
   input.required = required;
   input.placeholder = placeholder;
 
-  if (required) {
-    input.setAttribute('aria-required', 'true');
-  }
+  if (required) input.setAttribute('aria-required', 'true');
 
   if (type === 'textarea') {
     input.rows = 4;
@@ -155,26 +146,18 @@ function createFieldWrapper(row) {
   }
 
   wrapper.append(accessibleLabel, input);
-
   return wrapper;
 }
 
 function getSpreadsheetPath(block) {
   const link = block.querySelector('a');
-
-  if (link) {
-    return new URL(link.href).pathname.replace(/\.json$/, '');
-  }
+  if (link) return new URL(link.href).pathname.replace(/\.json$/, '');
 
   const value = block.textContent.trim();
-
   if (!value) return '';
 
   try {
-    return new URL(value, window.location.origin).pathname.replace(
-      /\.json$/,
-      '',
-    );
+    return new URL(value, window.location.origin).pathname.replace(/\.json$/, '');
   } catch {
     return value.replace(/\.json$/, '');
   }
@@ -182,40 +165,33 @@ function getSpreadsheetPath(block) {
 
 async function loadFormDefinition(path) {
   const response = await fetch(`${path}.json`);
-
-  if (!response.ok) {
-    throw new Error(
-      `Unable to load form definition: ${response.status}`,
-    );
-  }
+  if (!response.ok) throw new Error(`Unable to load form definition: ${response.status}`);
 
   const json = await response.json();
 
-  if (Array.isArray(json.data)) {
-    return {
-      rows: json.data,
-      action: json.action || '',
-      method: json.method || 'POST',
-    };
+  // Multi-sheet format handling (with config sheet)
+  const configSheet = json.config || json.settings;
+  const config = {};
+  if (configSheet && Array.isArray(configSheet.data)) {
+    configSheet.data.forEach((row) => {
+      const key = String(row.Key || row.key || '').trim().toLowerCase();
+      const val = row.Value || row.value || '';
+      if (key) config[key] = val;
+    });
   }
 
-  const sheetName = json[':names']?.[0];
-  const sheet = sheetName ? json[sheetName] : null;
+  const rows = Array.isArray(json.data) ? json.data : (json.form?.data || json[json[':names']?.[0]]?.data || []);
 
-  if (sheet && Array.isArray(sheet.data)) {
-    return {
-      rows: sheet.data,
-      action: json.action || sheet.action || '',
-      method: json.method || sheet.method || 'POST',
-    };
-  }
-
-  throw new Error('The form spreadsheet does not contain valid rows.');
+  return {
+    rows,
+    action: config.action || json.action || '',
+    method: config.method || json.method || 'POST',
+    redirect: config.redirect || json.redirect || '/thank-you', // Default incoming page
+  };
 }
 
 function showStatus(form, message, type) {
   let status = form.querySelector('.form-status');
-
   if (!status) {
     status = document.createElement('p');
     status.className = 'form-status';
@@ -223,7 +199,6 @@ function showStatus(form, message, type) {
     status.setAttribute('aria-live', 'polite');
     form.append(status);
   }
-
   status.className = `form-status form-status-${type}`;
   status.textContent = message;
 }
@@ -232,19 +207,11 @@ async function submitForm(event) {
   event.preventDefault();
 
   const form = event.currentTarget;
-  const endpoint = form.dataset.action;
   const submitButton = form.querySelector('.form-submit');
+  const endpoint = form.dataset.action || submitButton?.dataset.action;
+  const redirectUrl = form.dataset.redirect;
 
   if (!form.reportValidity()) return;
-
-  if (!endpoint) {
-    showStatus(
-      form,
-      'The form is ready, but a submission endpoint has not been configured.',
-      'error',
-    );
-    return;
-  }
 
   if (submitButton) {
     submitButton.disabled = true;
@@ -256,36 +223,33 @@ async function submitForm(event) {
     const payload = Object.fromEntries(formData.entries());
 
     form.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-      if (checkbox.name) {
-        payload[checkbox.name] = checkbox.checked;
-      }
+      if (checkbox.name) payload[checkbox.name] = checkbox.checked;
     });
 
-    const response = await fetch(endpoint, {
-      method: form.dataset.method || 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+    // 1. Post to backend endpoint if configured
+    if (endpoint) {
+      const response = await fetch(endpoint, {
+        method: form.dataset.method || 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
 
-    if (!response.ok) {
-      throw new Error(`Submission failed: ${response.status}`);
+      if (!response.ok) throw new Error(`Submission failed: ${response.status}`);
+    }
+
+    // 2. SAVE DATA TO SESSION STORAGE FOR THE INCOMING PAGE
+    sessionStorage.setItem('submittedFormData', JSON.stringify(payload));
+
+    // 3. REDIRECT TO INCOMING PAGE
+    if (redirectUrl) {
+      window.location.href = redirectUrl;
+      return;
     }
 
     form.reset();
-
-    showStatus(
-      form,
-      'Thank you. Your request has been submitted successfully.',
-      'success',
-    );
+    showStatus(form, 'Thank you. Your request has been submitted successfully.', 'success');
   } catch {
-    showStatus(
-      form,
-      'We could not submit your request. Please try again.',
-      'error',
-    );
+    showStatus(form, 'We could not submit your request. Please try again.', 'error');
   } finally {
     if (submitButton) {
       submitButton.disabled = false;
@@ -325,13 +289,13 @@ export default async function decorate(block) {
     form.noValidate = false;
     form.dataset.action = definition.action;
     form.dataset.method = definition.method;
+    form.dataset.redirect = definition.redirect;
 
     const fields = document.createElement('div');
     fields.className = 'contact-form-fields';
 
     definition.rows.forEach((row) => {
       const field = createFieldWrapper(row);
-
       if (field) fields.append(field);
     });
 
