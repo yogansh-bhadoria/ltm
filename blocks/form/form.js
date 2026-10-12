@@ -159,6 +159,7 @@ function getSpreadsheetPath(block) {
 }
 
 // Safely extracts rows whether sheet is single-sheet or multi-sheet
+// Safely extracts rows whether sheet is single-sheet or multi-sheet
 function extractFormRows(json) {
   if (Array.isArray(json.data)) {
     return json.data;
@@ -169,10 +170,11 @@ function extractFormRows(json) {
   }
 
   if (Array.isArray(json[':names'])) {
-    for (const name of json[':names']) {
-      if (name.toLowerCase() !== 'incoming' && Array.isArray(json[name]?.data)) {
-        return json[name].data;
-      }
+    const sheetName = json[':names'].find(
+      (name) => name.toLowerCase() !== 'incoming' && Array.isArray(json[name]?.data),
+    );
+    if (sheetName) {
+      return json[sheetName].data;
     }
   }
 
