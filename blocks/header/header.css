@@ -140,6 +140,15 @@ header .nav-tools a {
 /* =========================================
    HOVER STATES & CHEVRONS
    ========================================= */
+
+/* Remove all underlines on nav items and any <u> tags */
+header .nav-sections a,
+header .nav-sections li,
+header .nav-sections u {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
 header .nav-sections a:hover {
   opacity: 0.8;
 }
@@ -160,6 +169,8 @@ header .nav-sections li:not(:last-child) a::after {
   margin-left: 4px;
   margin-bottom: 2px;
 }
+
+
 
 /* =========================================
    RESPONSIVE
