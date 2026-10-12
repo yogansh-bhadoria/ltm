@@ -342,7 +342,7 @@ main > .section:first-of-type {
 }
 
 .form {
-    background-color:#000;
+    background-color:#000 ;
 }
 
 @media (width >= 900px) {
