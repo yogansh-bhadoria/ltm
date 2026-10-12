@@ -17,8 +17,7 @@ header .header {
 header nav {
   box-sizing: border-box;
   display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
+  flex-flow: row nowrap !important;
   align-items: center !important;
   justify-content: space-between !important;
   width: 100%;
