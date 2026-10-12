@@ -1,23 +1,19 @@
 /* =========================================
-   HEADER BASE STYLES
+   NAVBAR CONTAINER
    ========================================= */
-header {
-  background-color: #000;
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+header .header {
+  height: 100%;
 }
 
 header nav {
   box-sizing: border-box;
   display: flex !important;
-  flex-flow: row nowrap !important;
+  flex-flow: row nowrap !important; /* Strictly forbids wrapping */
   align-items: center !important;
   justify-content: space-between !important;
   width: 100%;
   max-width: 1440px;
-  height: 76px;
+  height: 100%;
   margin: 0 auto;
   padding: 0 32px;
   color: #fff;
@@ -27,8 +23,7 @@ header nav {
    1. BRAND (LEFT)
    ========================================= */
 header .nav-brand {
-  flex: 0 0 auto !important;
-  width: auto !important;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
 }
@@ -41,12 +36,11 @@ header .nav-brand p {
 
 header .nav-brand p,
 header .nav-brand a {
-  color: #ea624b;
+  color: #ea624b; /* Coral logo */
   font-size: 32px;
   font-weight: 800;
   letter-spacing: -0.5px;
   text-decoration: none;
-  font-family: inherit;
 }
 
 header .nav-brand img {
@@ -59,15 +53,14 @@ header .nav-brand img {
    2. SECTIONS (CENTER LINKS)
    ========================================= */
 header .nav-sections {
-  flex: 1 1 auto !important;
-  width: auto !important; /* Prevents pushing tools to next row */
-  display: flex !important;
-  justify-content: center !important;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
 }
 
 header .nav-sections ul {
-  display: flex !important;
-  flex-direction: row !important;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 28px;
   list-style: none;
@@ -95,11 +88,10 @@ header .nav-sections a {
    3. TOOLS (RIGHT - L&T + CONTACT)
    ========================================= */
 header .nav-tools {
-  flex: 0 0 auto !important;
-  width: auto !important;
-  display: flex !important;
-  align-items: center !important;
-  white-space: nowrap !important;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 header .nav-tools p {
@@ -113,6 +105,7 @@ header .nav-tools p {
   white-space: nowrap;
 }
 
+/* Vertical divider before company text */
 header .nav-tools p::before {
   content: '';
   display: inline-block;
@@ -121,6 +114,7 @@ header .nav-tools p::before {
   margin: 0 12px;
 }
 
+/* Contact button */
 header .nav-tools a {
   border: 1.5px solid #fff;
   border-radius: 9999px;
@@ -134,7 +128,7 @@ header .nav-tools a {
 }
 
 /* =========================================
-   HOVER & CHEVRONS
+   HOVER STATES & CHEVRONS
    ========================================= */
 header .nav-sections a:hover {
   opacity: 0.8;
@@ -158,7 +152,7 @@ header .nav-sections li:not(:last-child) a::after {
 }
 
 /* =========================================
-   RESPONSIVE
+   MOBILE
    ========================================= */
 @media (width >= 900px) {
   header .nav-hamburger {
@@ -168,65 +162,11 @@ header .nav-sections li:not(:last-child) a::after {
 
 @media (width < 900px) {
   header nav {
-    height: 64px;
     padding: 0 16px;
-  }
-
-  header .nav-hamburger {
-    display: block;
-    margin-right: 12px;
-  }
-
-  header .nav-hamburger button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-  }
-
-  header .nav-hamburger-icon,
-  header .nav-hamburger-icon::before,
-  header .nav-hamburger-icon::after {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: #fff;
-    position: relative;
-  }
-
-  header .nav-hamburger-icon::before {
-    content: '';
-    position: absolute;
-    top: -6px;
-  }
-
-  header .nav-hamburger-icon::after {
-    content: '';
-    position: absolute;
-    top: 6px;
   }
 
   header .nav-sections,
   header .nav-tools {
     display: none;
-  }
-
-  header nav[aria-expanded="true"] {
-    flex-wrap: wrap !important;
-    height: auto;
-  }
-
-  header nav[aria-expanded="true"] .nav-sections {
-    display: flex !important;
-    flex-direction: column;
-    width: 100% !important;
-    background-color: #000;
-    padding: 24px;
-  }
-
-  header nav[aria-expanded="true"] .nav-sections ul {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
   }
 }
