@@ -1,12 +1,18 @@
 import { getMetadata } from '../../scripts/aem.js';
-import { loadFragment } from '../fragment/fragment.js';
 
 export default async function decorate(block) {
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = await loadFragment(navPath);
 
-  block.textContent = '';
+  const response = await fetch(`${navPath}.plain.html`);
+  if(!response.ok) return;  
+
+  const html = await response.text();
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+
+  const sections = doc.querySelector('.header');
+
   const nav = document.createElement('nav');
   nav.id = 'nav';
 
@@ -20,14 +26,15 @@ export default async function decorate(block) {
   const navCompany = document.createElement('p');
   navCompany.className = 'nav-company';
 
-  const sections = fragment.querySelector('.header.block');
-  navBrand.textContent = sections.children[0].children[1].textContent;
+  navBrand.textContent  = sections.children[0].children[1].textContent.trim();
 
   // 3. Extract Menu (The <ul> bullet list goes exclusively to the center)
   const ul = sections.children[1].children[1];
   navSections.append(ul);
 
-  navCompany.textContent = sections.children[2].children[1].textContent;
+  navCompany.textContent = sections.children[2].children[1].textContent.trim();
+
+  console.log(navBrand,navSections,navCompany);
 
   // Assemble the 3 distinct parts
   nav.append(navBrand, navSections, navCompany);
