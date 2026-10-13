@@ -149,6 +149,12 @@ header .nav-sections u {
   border-bottom: none !important;
 }
 
+header .dropdown a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
 header .dropdown a:hover {
   color: #ea624b;
 }
@@ -212,12 +218,6 @@ header .dropdown ul {
 
 header .dropdown li {
   margin-bottom: 12px;
-}
-
-header .dropdown a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
 }
 
 /* =========================================
