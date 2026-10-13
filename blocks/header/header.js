@@ -43,7 +43,6 @@ export default async function decorate(block) {
     dropdown.innerHTML = '';
     const megaMenus = doc.querySelectorAll('.mega-menu');
     megaMenus.forEach((menu) => {
-      
       if (menu.children[0].children[1].textContent.trim() === e.target.textContent.trim()) {
         Array.from(menu.children).forEach((row, index) => {
           if (index === 0) return;
