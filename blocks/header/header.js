@@ -47,7 +47,7 @@ export default async function decorate(block) {
         Array.from(menu.children).forEach((row, index) => {
           if (index === 0) return;
 
-          dropdown.append(row);
+          dropdown.append(row.cloneNode(true));
         });
 
         block.append(dropdown);
