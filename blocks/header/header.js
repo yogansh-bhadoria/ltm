@@ -11,39 +11,28 @@ export default async function decorate(block) {
   nav.id = 'nav';
 
   // 1. Create the 3 guaranteed containers
-  const navBrand = document.createElement('div');
+  const navBrand = document.createElement('p');
   navBrand.className = 'nav-brand';
 
   const navSections = document.createElement('div');
   navSections.className = 'nav-sections';
 
-  const navTools = document.createElement('div');
-  navTools.className = 'nav-tools';
+  const navCompany = document.createElement('p');
+  navCompany.className = 'nav-company';
 
-  // 2. Extract Brand (First image/picture or first paragraph)
-  const firstPicture = fragment.querySelector('picture');
-  const firstP = fragment.querySelector('p');
-  if (firstPicture) {
-    navBrand.append(firstPicture.closest('p') || firstPicture);
-  } else if (firstP) {
-    navBrand.append(firstP);
-  }
+  const sections =  fragment.querySelector('.header.block');
+  
+  navBrand.textContent  = sections.children[0].children[1].textContent;
 
   // 3. Extract Menu (The <ul> bullet list goes exclusively to the center)
-  const ul = fragment.querySelector('ul');
-  if (ul) {
-    navSections.append(ul);
-  }
+  const ul = sections.children[1].children[1];
+  navSections.append(ul);
 
-  // 4. Extract Tools (Company info and buttons go strictly to the right)
-  const allParagraphs = fragment.querySelectorAll('p');
-  allParagraphs.forEach((p) => {
-    if (!navBrand.contains(p) && !navSections.contains(p)) {
-      navTools.append(p);
-    }
-  });
+  navCompany.textContent = sections.children[2].children[1].textContent;
+
+  console.log(navBrand,navSections,navCompany);
 
   // Assemble the 3 distinct parts
-  nav.append(navBrand, navSections, navTools);
+  nav.append(navBrand, navSections, navCompany);
   block.append(nav);
 }
