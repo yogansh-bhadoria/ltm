@@ -21,7 +21,6 @@ export default async function decorate(block) {
   navCompany.className = 'nav-company';
 
   const sections = fragment.querySelector('.header.block');
-  
   navBrand.textContent = sections.children[0].children[1].textContent;
 
   // 3. Extract Menu (The <ul> bullet list goes exclusively to the center)
