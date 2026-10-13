@@ -40,13 +40,10 @@ export default async function decorate(block) {
 
       // "Case Study" badge in top-right of image
       const tagText = page.category;
-      
       const tag = document.createElement('span');
       tag.className = 'cards-card-tag';
       tag.textContent = tagText;
       imageDiv.append(tag);
-      
-
       // Card Content (Title, Description, Link)
       const bodyDiv = document.createElement('div');
       bodyDiv.className = 'cards-card-body';
@@ -54,7 +51,6 @@ export default async function decorate(block) {
         <h3><a href="${page.path}">${page.title || ''}</a></h3>
         <p>${page.description || ''}</p>
       `;
-
       li.append(imageDiv, bodyDiv);
       ul.append(li);
     });
