@@ -49,9 +49,10 @@ export default async function decorate(block) {
 
         block.append(dropdown);
       }
-      dropdown.innerHTML = '';
     });
   });
+  dropdown.innerHTML = '';
+
 
   block.append(nav);
 }
