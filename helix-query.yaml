@@ -20,3 +20,6 @@ indices:
       lastModified:
         select: none
         value: parseTimestamp(headers['last-modified'], 'ddd, DD MMM YYYY HH:mm:ss GMT')
+      page-category:
+        select: head > meta[property="og:page-category"]
+        value: attribute(el, 'content')  
