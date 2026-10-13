@@ -169,53 +169,54 @@ header .nav-sections li:not(:last-child) a::after {
   margin-bottom: 2px;
 }
 
-.dropdown {
+/* =========================================
+   DROPDOWN
+   ========================================= */
+header .dropdown {
   position: absolute;
   top: 76px;
   left: 0;
   width: 100%;
   background: #000;
   color: #fff;
-
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-
   gap: 40px;
   padding: 40px 60px;
   box-sizing: border-box;
   z-index: 1000;
 }
 
-.dropdown > div {
+header .dropdown > div {
   display: flex;
   flex-direction: column;
 }
 
-.dropdown h2,
-.dropdown h3,
-.dropdown p:first-child {
+header .dropdown h2,
+header .dropdown h3,
+header .dropdown p:first-child {
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 16px;
 }
 
-.dropdown ul {
+header .dropdown ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.dropdown li {
+header .dropdown li {
   margin-bottom: 12px;
 }
 
-.dropdown a {
+header .dropdown a {
   color: #fff;
   text-decoration: none;
   font-size: 14px;
 }
 
-.dropdown a:hover {
+header .dropdown a:hover {
   color: #ea624b;
 }
 
