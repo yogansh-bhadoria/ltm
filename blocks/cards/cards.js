@@ -39,13 +39,13 @@ export default async function decorate(block) {
       }
 
       // "Case Study" badge in top-right of image
-      const tagText = page.category || page.type || (page.image ? 'Case Study' : '');
-      if (tagText) {
-        const tag = document.createElement('span');
-        tag.className = 'cards-card-tag';
-        tag.textContent = tagText;
-        imageDiv.append(tag);
-      }
+      const tagText = page.page-category;
+      
+      const tag = document.createElement('span');
+      tag.className = 'cards-card-tag';
+      tag.textContent = tagText;
+      imageDiv.append(tag);
+      
 
       // Card Content (Title, Description, Link)
       const bodyDiv = document.createElement('div');
