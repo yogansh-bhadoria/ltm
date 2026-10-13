@@ -24,7 +24,6 @@ export default async function decorate(block) {
 
   const navCompany = document.createElement('p');
   navCompany.className = 'nav-company';
-
   navBrand.textContent = sections.children[0].children[1].textContent.trim();
 
   // 3. Extract Menu (The <ul> bullet list goes exclusively to the center)
