@@ -5,8 +5,7 @@ export default async function decorate(block) {
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
 
   const response = await fetch(`${navPath}.plain.html`);
-  if(!response.ok) return;  
-
+  if (!response.ok) return;  
   const html = await response.text();
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
@@ -26,15 +25,13 @@ export default async function decorate(block) {
   const navCompany = document.createElement('p');
   navCompany.className = 'nav-company';
 
-  navBrand.textContent  = sections.children[0].children[1].textContent.trim();
+  navBrand.textContent = sections.children[0].children[1].textContent.trim();
 
   // 3. Extract Menu (The <ul> bullet list goes exclusively to the center)
   const ul = sections.children[1].children[1];
   navSections.append(ul);
 
   navCompany.textContent = sections.children[2].children[1].textContent.trim();
-
-  console.log(navBrand,navSections,navCompany);
 
   // Assemble the 3 distinct parts
   nav.append(navBrand, navSections, navCompany);
