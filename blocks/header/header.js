@@ -6,6 +6,7 @@ export default async function decorate(block) {
 
   const response = await fetch(`${navPath}.plain.html`);
   if (!response.ok) return;
+
   const html = await response.text();
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
@@ -24,6 +25,7 @@ export default async function decorate(block) {
 
   const navCompany = document.createElement('p');
   navCompany.className = 'nav-company';
+
   navBrand.textContent = sections.children[0].children[1].textContent.trim();
 
   // 3. Extract Menu (The <ul> bullet list goes exclusively to the center)
@@ -34,5 +36,21 @@ export default async function decorate(block) {
 
   // Assemble the 3 distinct parts
   nav.append(navBrand, navSections, navCompany);
+  navSections.addEventListener('mouseover', (e) => {
+    const megaMenus = doc.querySelectorAll('.mega-menu');
+    megaMenus.forEach((menu) => {
+      const dropdown = document.createElement('div');
+      if (menu.children[0].children[1].textContent.trim() === e.target.textContent.trim()) {
+        Array.from(menu.children).forEach((row, index) => {
+          if (index === 0) return;
+
+          dropdown.append(row);
+        });
+
+        block.append(dropdown);
+      }
+    });
+  });
+
   block.append(nav);
 }
