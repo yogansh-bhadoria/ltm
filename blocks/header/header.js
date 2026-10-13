@@ -26,6 +26,9 @@ export default async function decorate(block) {
   const navCompany = document.createElement('p');
   navCompany.className = 'nav-company';
 
+  const dropdown = document.createElement('div');
+  dropdown.className = 'dropdown';
+
   navBrand.textContent = sections.children[0].children[1].textContent.trim();
 
   // 3. Extract Menu (The <ul> bullet list goes exclusively to the center)
@@ -35,11 +38,12 @@ export default async function decorate(block) {
   navCompany.textContent = sections.children[2].children[1].textContent.trim();
 
   // Assemble the 3 distinct parts
-  nav.append(navBrand, navSections, navCompany);
+  nav.append(navBrand, navSections, navCompany, dropdown);
   navSections.addEventListener('mouseover', (e) => {
+    dropdown.innerHTML = '';
     const megaMenus = doc.querySelectorAll('.mega-menu');
     megaMenus.forEach((menu) => {
-      const dropdown = document.createElement('div');
+      
       if (menu.children[0].children[1].textContent.trim() === e.target.textContent.trim()) {
         Array.from(menu.children).forEach((row, index) => {
           if (index === 0) return;
@@ -51,8 +55,6 @@ export default async function decorate(block) {
       }
     });
   });
-  dropdown.innerHTML = '';
-
 
   block.append(nav);
 }
