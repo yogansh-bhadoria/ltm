@@ -39,7 +39,7 @@ export default async function decorate(block) {
       }
 
       // "Case Study" badge in top-right of image
-      const tagText = page.page-category;
+      const tagText = page.category;
       
       const tag = document.createElement('span');
       tag.className = 'cards-card-tag';
