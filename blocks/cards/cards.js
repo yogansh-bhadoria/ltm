@@ -13,7 +13,6 @@ export default async function decorate(block) {
     const allPages = json.data || [];
 
     // 2. Filter out index page itself and take up to 10 pages
-    // (Adjust the filter if your 10 pages live under a specific folder like /blog/)
     const pagesToShow = allPages
       .filter((page) => page.path !== window.location.pathname)
       .slice(0, 10);
@@ -24,19 +23,35 @@ export default async function decorate(block) {
     pagesToShow.forEach((page) => {
       const li = document.createElement('li');
 
-      // Card Image
+      // Card Image (use page.image if present, otherwise clean dark placeholder)
       const imageDiv = document.createElement('div');
       imageDiv.className = 'cards-card-image';
-      if (page.image) {
-        const picture = createOptimizedPicture(page.image, page.title, false, [{ width: '750' }]);
+
+      if (page.image && page.image.trim() !== '') {
+        const picture = createOptimizedPicture(page.image, page.title || '', false, [{ width: '750' }]);
         imageDiv.append(picture);
+      } else {
+        // Placeholder image when no image is available
+        const placeholderImg = document.createElement('img');
+        placeholderImg.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="750" height="420" viewBox="0 0 750 420"%3E%3Crect width="100%25" height="100%25" fill="%23222"%2F%3E%3C/svg%3E';
+        placeholderImg.alt = page.title || '';
+        imageDiv.append(placeholderImg);
+      }
+
+      // "Case Study" badge in top-right of image
+      const tagText = page.category || page.type || (page.image ? 'Case Study' : '');
+      if (tagText) {
+        const tag = document.createElement('span');
+        tag.className = 'cards-card-tag';
+        tag.textContent = tagText;
+        imageDiv.append(tag);
       }
 
       // Card Content (Title, Description, Link)
       const bodyDiv = document.createElement('div');
       bodyDiv.className = 'cards-card-body';
       bodyDiv.innerHTML = `
-        <h3><a href="${page.path}">${page.title}</a></h3>
+        <h3><a href="${page.path}">${page.title || ''}</a></h3>
         <p>${page.description || ''}</p>
       `;
 
