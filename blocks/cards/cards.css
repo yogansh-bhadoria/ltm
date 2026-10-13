@@ -70,125 +70,6 @@
   letter-spacing: -0.5px;
 }
 
-/* ========================================================
-   QUERY CARDS VARIANT ONLY (.cards.query)
-   Wide, dark-themed cards matching the reference design
-   (Placed here before stat rules to satisfy Stylelint specificity order)
-   ======================================================== */
-
-/* 3-column wide grid on desktop */
-.cards.query > ul {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px 24px;
-}
-
-@media (width <= 992px) {
-  .cards.query > ul {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (width <= 600px) {
-  .cards.query > ul {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Individual Query Card (dark background, wide landscape aspect ratio) */
-.cards.query > ul > li {
-  background-color: #1a1a1a;
-  border: none;
-  border-radius: 20px;
-  padding: 0;
-  min-height: 310px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-sizing: border-box;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.cards.query > ul > li:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgb(0 0 0 / 45%);
-}
-
-/* Top full-bleed image */
-.cards.query .cards-card-image {
-  position: relative;
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-  flex-shrink: 0;
-  display: block;
-}
-
-.cards.query .cards-card-image picture,
-.cards.query .cards-card-image img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Case Study badge in top-right corner */
-.cards.query .cards-card-tag {
-  position: absolute;
-  top: 16px;
-  right: 20px;
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  text-shadow: 0 1px 4px rgb(0 0 0 / 80%);
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* Query Card Body */
-.cards.query .cards-card-body {
-  padding: 20px 24px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  flex-grow: 1;
-  background-color: #1a1a1a;
-}
-
-/* Overriding the 2.75rem coral heading for query cards */
-.cards.query .cards-card-body h3 {
-  margin: 0;
-  font-size: 1.15rem;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: normal;
-  color: #fff;
-}
-
-.cards.query .cards-card-body h3 a {
-  color: #fff;
-  text-decoration: none;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: color 0.2s ease;
-}
-
-.cards.query .cards-card-body h3 a:hover {
-  color: #ea624b;
-}
-
-/* Hide description on query cards */
-.cards.query .cards-card-body p {
-  display: none;
-}
-
-/* ========================================================
-   STAT NUMBERS / MANUAL CARDS CONTINUED
-   ======================================================== */
-
 /* Stat Number (When authored as two cells in DA) */
 .cards > ul > li > div:first-child:not(:last-child) p {
   margin: 0 0 20px;
@@ -214,4 +95,118 @@
 .cards > ul > li > div:only-child > p:first-child a {
   color: #ea624b;
   text-decoration: none;
+}
+
+/* ========================================================
+   QUERY CARDS VARIANT ONLY (.cards.block.query)
+   Wide, dark-themed cards matching the reference design
+   ======================================================== */
+
+/* 3-column wide grid on desktop */
+.cards.block.query > ul {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px 24px;
+}
+
+@media (width <= 992px) {
+  .cards.block.query > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width <= 600px) {
+  .cards.block.query > ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Individual Query Card (dark background, wide landscape aspect ratio) */
+.cards.block.query > ul > li {
+  background-color: #1a1a1a;
+  border: none;
+  border-radius: 20px;
+  padding: 0;
+  min-height: 310px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cards.block.query > ul > li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 45%);
+}
+
+/* Top full-bleed image */
+.cards.block.query .cards-card-image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: block;
+}
+
+.cards.block.query .cards-card-image picture,
+.cards.block.query .cards-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Case Study badge in top-right corner */
+.cards.block.query .cards-card-tag {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 4px rgb(0 0 0 / 80%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Query Card Body */
+.cards.block.query .cards-card-body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-grow: 1;
+  background-color: #1a1a1a;
+}
+
+/* Overriding the 2.75rem coral heading for query cards */
+.cards.block.query .cards-card-body h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: normal;
+  color: #fff;
+}
+
+.cards.block.query > ul > li > .cards-card-body h3 a {
+  color: #fff;
+  text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease;
+}
+
+.cards.block.query > ul > li > .cards-card-body h3 a:hover {
+  color: #ea624b;
+}
+
+/* Hide description on query cards */
+.cards.block.query > ul > li > .cards-card-body p {
+  display: none;
 }
