@@ -5,7 +5,7 @@ export default async function decorate(block) {
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
 
   const response = await fetch(`${navPath}.plain.html`);
-  if (!response.ok) return;  
+  if (!response.ok) return;
   const html = await response.text();
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
