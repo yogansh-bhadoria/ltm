@@ -26,6 +26,7 @@ header nav {
   margin: 0 auto;
   padding: 0 32px;
   color: #fff;
+  position: relative;
 }
 
 /* =========================================
@@ -185,9 +186,10 @@ header .nav-sections li:not(:last-child) a::after {
 header .dropdown {
   position: absolute;
   top: 76px;
-  left: 0;
-  width: 100%;
-  background: #000;
+  left: 32px;
+  width: calc(100% - 64px);
+  max-width: 1200px;
+  background: #161616;
   color: #fff;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -195,9 +197,7 @@ header .dropdown {
   padding: 40px 60px;
   box-sizing: border-box;
   z-index: 1000;
-  border-radius:20px;
-  opacity:0.1;
-  
+  border-radius: 20px;
 }
 
 header .dropdown > div {
