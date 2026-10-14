@@ -23,7 +23,7 @@ export default async function decorate(block) {
     const dropdown = document.createElement('select');
     dropdown.className = 'asset_type_dropdown';
 
-    const sortingValues = [...block.children[0].children[1]];
+    const sortingValues = block.children[0].children[1].querySelector('ul');
     const testDiv = document.createElement('div');
     testDiv.append(sortingValues);
 
