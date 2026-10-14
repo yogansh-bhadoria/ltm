@@ -49,7 +49,7 @@
   flex-grow: 1;
 }
 
-.cards .dropdown p{
+.cards .asset-type-dropdown p{
   font-size: medium;
   color: #111;
 }
@@ -222,7 +222,7 @@
   color: #ea624b;
 }
 
-.cards .dropdown {
+.cards .asset-type-dropdown {
   border-radius: 20px;
   width: 30%;
   padding: 5px;
