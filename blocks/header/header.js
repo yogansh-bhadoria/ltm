@@ -16,34 +16,41 @@ export default async function decorate(block) {
   const nav = document.createElement('nav');
   nav.id = 'nav';
 
-  // 1. Create the 3 guaranteed containers
-  const navBrand = document.createElement('p');
+  // 1. Brand Logo (Pure text styled link)
+  const navBrand = document.createElement('div');
   navBrand.className = 'nav-brand';
+  const brandLink = document.createElement('a');
+  brandLink.href = '/';
+  brandLink.textContent = sections.children[0].children[1].textContent.trim() || 'LTM';
+  navBrand.append(brandLink);
 
+  // 2. Center Menu
   const navSections = document.createElement('div');
   navSections.className = 'nav-sections';
+  const ul = sections.children[1].children[1];
+  navSections.append(ul);
 
-  const navCompany = document.createElement('div');
-  navCompany.className = 'nav-tools';
+  // 3. Right Tools (Company text + Contact button)
+  const navTools = document.createElement('div');
+  navTools.className = 'nav-tools';
+  if (sections.children[2] && sections.children[2].children[1]) {
+    navTools.innerHTML = sections.children[2].children[1].innerHTML;
+  }
+  if (!navTools.querySelector('a')) {
+    const contactBtn = document.createElement('a');
+    contactBtn.href = '/contact';
+    contactBtn.textContent = 'Contact';
+    navTools.append(contactBtn);
+  }
 
+  // 4. Dropdown Container
   const dropdown = document.createElement('div');
   dropdown.className = 'dropdown';
   dropdown.style.display = 'none';
 
-  navBrand.textContent = sections.children[0].children[1].textContent.trim();
+  // Assemble into nav
+  nav.append(navBrand, navSections, navTools, dropdown);
 
-  // 3. Extract Menu (The <ul> bullet list goes exclusively to the center)
-  const ul = sections.children[1].children[1];
-  navSections.append(ul);
-
-  if (sections.children[2] && sections.children[2].children[1]) {
-    Array.from(sections.children[2].children[1].children).forEach((child) => {
-      navCompany.append(child);
-    });
-  }
-
-  // Assemble the distinct parts into nav (dropdown stays inside nav for proper alignment)
-  nav.append(navBrand, navSections, navCompany, dropdown);
   navSections.addEventListener('mouseover', (e) => {
     dropdown.innerHTML = '';
     const megaMenus = doc.querySelectorAll('.mega-menu');
@@ -52,10 +59,7 @@ export default async function decorate(block) {
         Array.from(menu.children).forEach((row, index) => {
           if (index === 0) return;
 
-          const cells = row.children.length > 0 ? Array.from(row.children) : [row];
-          cells.forEach((cell) => {
-            dropdown.append(cell.cloneNode(true));
-          });
+          dropdown.append(row.cloneNode(true));
         });
         dropdown.style.display = dropdown.children.length > 0 ? 'flex' : 'none';
       }
@@ -65,5 +69,6 @@ export default async function decorate(block) {
   nav.addEventListener('mouseleave', () => {
     dropdown.style.display = 'none';
   });
+
   block.append(nav);
 }
