@@ -20,11 +20,12 @@ export default async function decorate(block) {
     // 3. Generate the Cards HTML structure
     const ul = document.createElement('ul');
 
-    const sortingValues = [...block.children];
+    const dropdown = document.createElement('select');
+    dropdown.className = 'asset_type_dropdown';
+
+    const sortingValues = [...block.children[1]];
     const testDiv = document.createElement('div');
-    sortingValues.forEach((item) => {
-      testDiv.append(item.cloneNode(true));
-    });
+    testDiv.append(sortingValues);
 
     pagesToShow.forEach((page) => {
       const li = document.createElement('li');
