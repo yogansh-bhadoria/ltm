@@ -49,7 +49,8 @@ export default async function decorate(block) {
 
           dropdown.append(row.cloneNode(true));
         });
-
+        
+        dropdown.children.length > 0 ? 'block' : 'none';
         block.append(dropdown);
       }
     });
