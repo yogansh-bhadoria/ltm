@@ -20,6 +20,12 @@ export default async function decorate(block) {
     // 3. Generate the Cards HTML structure
     const ul = document.createElement('ul');
 
+    const sortingValues = [...block.children];
+    const testDiv = document.createElement('div');
+    sortingValues.forEach((item) => {
+      testDiv.append(item.cloneNode(true));
+    });
+
     pagesToShow.forEach((page) => {
       const li = document.createElement('li');
 
@@ -58,6 +64,7 @@ export default async function decorate(block) {
     // Replace whatever was inside the block table with our cards list
     block.textContent = '';
     block.append(ul);
+    block.append(testDiv);
     return;
   }
 
