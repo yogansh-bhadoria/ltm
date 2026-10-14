@@ -42,6 +42,8 @@ header .nav-brand p {
   margin: 0;
   padding: 0;
   line-height: 1;
+  color:#EC6A56;
+  font-size:72px;
 }
 
 header .nav-brand p,
