@@ -56,9 +56,8 @@ export default async function decorate(block) {
     });
   });
 
-   navSections.addEventListener('mouseleave', () => {
+navSections.addEventListener('mouseleave', () => {
     dropdown.style.display = 'none';
-  });
-  
-  block.append(nav);
+});
+block.append(nav);
 }
