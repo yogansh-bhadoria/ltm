@@ -196,7 +196,7 @@ header .dropdown {
   box-sizing: border-box;
   z-index: 1000;
   border-radius:20px;
-  opacity:50%;
+  opacity:0.5;
   
 }
 
