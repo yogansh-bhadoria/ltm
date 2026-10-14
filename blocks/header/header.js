@@ -23,8 +23,8 @@ export default async function decorate(block) {
   const navSections = document.createElement('div');
   navSections.className = 'nav-sections';
 
-  const navCompany = document.createElement('p');
-  navCompany.className = 'nav-company';
+  const navCompany = document.createElement('div');
+  navCompany.className = 'nav-tools';
 
   const dropdown = document.createElement('div');
   dropdown.className = 'dropdown';
@@ -36,9 +36,13 @@ export default async function decorate(block) {
   const ul = sections.children[1].children[1];
   navSections.append(ul);
 
-  navCompany.textContent = sections.children[2].children[1].textContent.trim();
+  if (sections.children[2] && sections.children[2].children[1]) {
+    Array.from(sections.children[2].children[1].children).forEach((child) => {
+      navCompany.append(child);
+    });
+  }
 
-  // Assemble the 3 distinct parts
+  // Assemble the distinct parts into nav (dropdown stays inside nav for proper alignment)
   nav.append(navBrand, navSections, navCompany, dropdown);
   navSections.addEventListener('mouseover', (e) => {
     dropdown.innerHTML = '';
@@ -48,15 +52,17 @@ export default async function decorate(block) {
         Array.from(menu.children).forEach((row, index) => {
           if (index === 0) return;
 
-          dropdown.append(row.cloneNode(true));
+          const cells = row.children.length > 0 ? Array.from(row.children) : [row];
+          cells.forEach((cell) => {
+            dropdown.append(cell.cloneNode(true));
+          });
         });
-        dropdown.style.display = dropdown.children.length > 0 ? 'grid' : 'none';
-        block.append(dropdown);
+        dropdown.style.display = dropdown.children.length > 0 ? 'flex' : 'none';
       }
     });
   });
 
-  navSections.addEventListener('mouseleave', () => {
+  nav.addEventListener('mouseleave', () => {
     dropdown.style.display = 'none';
   });
   block.append(nav);
