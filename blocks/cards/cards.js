@@ -28,7 +28,7 @@ function renderCards(pages, ul) {
     bodyDiv.className = 'cards-card-body';
 
     bodyDiv.innerHTML = `
-  <h3>${page.title || ''}</a></h3>
+  <h3>${page.path}${page.title || ''}</a></h3>
   <p>${page.description || ''}</p>
 `;
 
