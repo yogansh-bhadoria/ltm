@@ -87,10 +87,14 @@ export default async function decorate(block) {
 
     renderCards(pagesToShow, ul);
 
+    const displayText = document.createElement('p');
+    displayText.textContent = 'Showing latest insights';
+
     // Replace whatever was inside the block table with our cards list
     block.textContent = '';
     block.append(dropdownTitle);
     block.append(dropdown);
+    block.append(displayText);
     block.append(ul);
     return;
   }
