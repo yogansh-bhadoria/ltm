@@ -38,7 +38,7 @@ header .nav-brand {
   align-items: center;
 }
 
-header .nav-brand p {
+header .nav-brand{
   margin: 0;
   padding: 0;
   line-height: 1;
