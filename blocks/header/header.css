@@ -38,12 +38,13 @@ header .nav-brand {
   align-items: center;
 }
 
-header .nav-brand p,
-header .nav-brand a {
-  color: #ea624b; /* Distinct LTM coral */
-  font-size: 34px;
+header .nav-brand,
+header .nav-brand a,
+header .nav-brand p {
+  color: #ea624b !important;
+  font-size: 36px;
   font-weight: 800;
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
   text-decoration: none;
   font-family: inherit;
   margin: 0;
@@ -70,7 +71,7 @@ header .nav-sections ul {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 28px;
+  gap: 32px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -90,7 +91,35 @@ header .nav-sections a {
   align-items: center;
   gap: 4px;
   white-space: nowrap;
-  transition: opacity 0.2s ease;
+  transition: color 0.2s ease;
+}
+
+header .nav-tools a {
+  border: 1.5px solid #fff;
+  border-radius: 9999px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 22px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+header .dropdown a {
+  color: rgb(255 255 255 / 85%);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+header .nav-sections a:hover::after {
+  transform: rotate(-135deg);
+  border-color: #ea624b;
+  margin-bottom: -1px;
 }
 
 /* Downward pointing chevron arrow in pure CSS */
@@ -104,31 +133,11 @@ header .nav-sections li:not(:last-child) a::after {
   transform: rotate(45deg);
   margin-left: 6px;
   margin-bottom: 3px;
-  transition: transform 0.2s ease;
-}
-
-header .nav-tools a {
-  border: 1.5px solid #fff;
-  border-radius: 9999px;
-  color: #fff;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 6px 20px;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-header .dropdown a {
-  color: rgb(255 255 255 / 85%);
-  text-decoration: none;
-  font-size: 14px;
-  line-height: 1.4;
-  transition: color 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 header .nav-sections a:hover {
-  opacity: 0.8;
+  color: #ea624b;
 }
 
 /* =========================================
@@ -138,17 +147,15 @@ header .nav-tools {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   white-space: nowrap;
 }
 
 header .nav-tools p {
   margin: 0;
   padding: 0;
-  display: flex;
-  align-items: center;
   font-size: 11px;
-  line-height: 1.25;
+  line-height: 1.3;
   color: #fff;
   white-space: normal;
   max-width: 110px;
@@ -170,56 +177,80 @@ header .dropdown {
   left: 32px;
   width: fit-content;
   max-width: calc(100% - 64px);
+  min-height: 380px;
   background: #141414;
   color: #fff;
   display: flex;
   flex-direction: row;
   gap: 48px;
-  padding: 36px 56px;
+  padding: 48px 64px;
   box-sizing: border-box;
   z-index: 1000;
-  border-radius: 20px;
-  box-shadow: 0 20px 48px rgb(0 0 0 / 70%);
+  border-radius: 24px;
+  box-shadow: 0 24px 64px rgb(0 0 0 / 80%);
 }
 
+/* Each column (one table row containing title & links) */
 header .dropdown > div {
   display: flex;
   flex-direction: column;
-  min-width: 180px;
+  min-width: 220px;
 }
 
+header .dropdown p {
+  margin: 0 0 14px;
+  padding: 0;
+  line-height: 1.4;
+}
+
+/* Column Header (iRun, iTransform, Business AI) */
+header .dropdown > div > div:first-child,
+header .dropdown > div > p:first-child,
 header .dropdown h2,
-header .dropdown h3,
-header .dropdown p:first-child {
-  font-size: 15px;
+header .dropdown h3 {
+  font-size: 16px;
   font-weight: 700;
   color: #fff;
-  margin: 0 0 16px;
+  margin: 0 0 20px;
   display: flex;
   align-items: center;
+  line-height: 1.3;
 }
 
-/* Small coral square bullet indicator */
+/* Coral square bullet indicator */
+header .dropdown > div > div:first-child::before,
+header .dropdown > div > p:first-child::before,
 header .dropdown h2::before,
-header .dropdown h3::before,
-header .dropdown p:first-child::before {
+header .dropdown h3::before {
   content: '';
   display: inline-block;
   width: 6px;
   height: 6px;
   background-color: #ea624b;
-  margin-right: 8px;
+  margin-right: 10px;
   border-radius: 1px;
+  flex-shrink: 0;
+}
+
+/* Column Links Container */
+header .dropdown > div > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 header .dropdown ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 header .dropdown li {
-  margin-bottom: 12px;
+  margin: 0;
+  padding: 0;
 }
 
 header .dropdown a:hover {
