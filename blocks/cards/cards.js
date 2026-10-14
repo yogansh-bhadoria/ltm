@@ -61,7 +61,7 @@ export default async function decorate(block) {
     dropdownTitle.textContent = block.children[0].children[0].textContent.trim();
 
     const dropdown = document.createElement('select');
-    dropdown.className = 'asset_type_dropdown';
+    dropdown.className = 'asset-type-dropdown';
 
     const sortingValues = block.children[0].children[1].querySelector('ul');
     const assetTypes = sortingValues.querySelectorAll('li');
