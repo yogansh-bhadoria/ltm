@@ -186,7 +186,8 @@ header .dropdown {
   position: absolute;
   top: 76px;
   left: 32px;
-  width: calc(100% - 64px);
+  padding:30px;
+  width: auto;
   max-width: 1200px;
   background: #161616;
   color: #fff;
