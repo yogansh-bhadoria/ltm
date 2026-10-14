@@ -192,11 +192,12 @@ header .dropdown {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 40px;
+  place-items: center;
   padding: 40px 60px;
   box-sizing: border-box;
   z-index: 1000;
   border-radius:20px;
-  opacity:0.5;
+  opacity:0.2;
   
 }
 
