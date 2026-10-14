@@ -57,6 +57,9 @@ export default async function decorate(block) {
     // 3. Generate the Cards HTML structure
     const ul = document.createElement('ul');
 
+    const dropdownTitle = document.createElement('p');
+    dropdownTitle.textContent = block.children[0].children[1].querySelector('p');
+
     const dropdown = document.createElement('select');
     dropdown.className = 'asset_type_dropdown';
 
@@ -86,8 +89,9 @@ export default async function decorate(block) {
 
     // Replace whatever was inside the block table with our cards list
     block.textContent = '';
-    block.append(ul);
+    block.append(dropdownTitle);
     block.append(dropdown);
+    block.append(ul);
     return;
   }
 
