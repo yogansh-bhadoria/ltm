@@ -182,7 +182,7 @@ header .nav-sections li:not(:last-child) a::after {
 /* =========================================
    DROPDOWN
    ========================================= */
-.dropdown {
+header .dropdown {
   position: absolute;
   top: 76px;
   left: 0;
@@ -196,30 +196,30 @@ header .nav-sections li:not(:last-child) a::after {
   box-sizing: border-box;
   z-index: 1000;
   border-radius:20px;
-  opacity:0.8;
+  opacity:0.1;
   
 }
 
-.dropdown > div {
+header .dropdown > div {
   display: flex;
   flex-direction: column;
 }
 
-.dropdown h2,
-.dropdown h3,
-.dropdown p:first-child {
+header .dropdown h2,
+header .dropdown h3,
+header .dropdown p:first-child {
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 16px;
 }
 
-.dropdown ul {
+header .dropdown ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.dropdown li {
+header .dropdown li {
   margin-bottom: 12px;
 }
 
