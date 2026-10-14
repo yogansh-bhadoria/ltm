@@ -36,21 +36,19 @@ header .nav-brand {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  margin: 0;
-  padding: 0;
-  line-height: 1;
-  color:#EC6A56;
-  font-size:72px;
 }
 
 header .nav-brand p,
 header .nav-brand a {
   color: #ea624b; /* Distinct LTM coral */
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 800;
   letter-spacing: -0.5px;
   text-decoration: none;
   font-family: inherit;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
 }
 
 header .nav-brand img {
@@ -90,8 +88,47 @@ header .nav-sections a {
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+/* Downward pointing chevron arrow in pure CSS */
+header .nav-sections li:not(:last-child) a::after {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
+  margin-left: 6px;
+  margin-bottom: 3px;
+  transition: transform 0.2s ease;
+}
+
+header .nav-tools a {
+  border: 1.5px solid #fff;
+  border-radius: 9999px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 20px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+header .dropdown a {
+  color: rgb(255 255 255 / 85%);
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+}
+
+header .nav-sections a:hover {
+  opacity: 0.8;
 }
 
 /* =========================================
@@ -101,6 +138,7 @@ header .nav-tools {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
+  gap: 16px;
   white-space: nowrap;
 }
 
@@ -110,73 +148,17 @@ header .nav-tools p {
   display: flex;
   align-items: center;
   font-size: 11px;
-  line-height: 1.2;
+  line-height: 1.25;
   color: #fff;
-  white-space: nowrap;
-}
-
-/* Vertical divider before company text */
-header .nav-tools p::before {
-  content: '';
-  display: inline-block;
-  height: 24px;
-  border-left: 1px solid rgb(255 255 255 / 40%);
-  margin: 0 12px;
+  white-space: normal;
+  max-width: 110px;
 }
 
 /* Pill Contact button */
-header .nav-tools a {
-  border: 1.5px solid #fff;
-  border-radius: 9999px;
-  color: #fff;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 6px 20px;
-  margin-left: 16px;
-  transition: all 0.2s ease;
-}
-
-/* =========================================
-   HOVER STATES & CHEVRONS
-   ========================================= */
-
-/* Remove all underlines on nav items and any <u> tags */
-header .nav-sections a,
-header .nav-sections li,
-header .nav-sections u {
-  text-decoration: none !important;
-  border-bottom: none !important;
-}
-
-header .dropdown a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-header .dropdown a:hover {
-  color: #ea624b;
-}
-
-header .nav-sections a:hover {
-  opacity: 0.8;
-}
 
 header .nav-tools a:hover {
   background-color: #fff;
   color: #000;
-}
-
-header .nav-sections li:not(:last-child) a::after {
-  content: '';
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-right: 2px solid #fff;
-  transform: rotate(45deg);
-  margin-left: 4px;
-  margin-bottom: 2px;
 }
 
 /* =========================================
@@ -186,30 +168,48 @@ header .dropdown {
   position: absolute;
   top: 76px;
   left: 32px;
-  width: auto;
-  max-width: 1200px;
-  background: #161616;
+  width: fit-content;
+  max-width: calc(100% - 64px);
+  background: #141414;
   color: #fff;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  padding: 40px 60px;
+  display: flex;
+  flex-direction: row;
+  gap: 48px;
+  padding: 36px 56px;
   box-sizing: border-box;
   z-index: 1000;
   border-radius: 20px;
+  box-shadow: 0 20px 48px rgb(0 0 0 / 70%);
 }
 
 header .dropdown > div {
   display: flex;
   flex-direction: column;
+  min-width: 180px;
 }
 
 header .dropdown h2,
 header .dropdown h3,
 header .dropdown p:first-child {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
-  margin-bottom: 16px;
+  color: #fff;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+}
+
+/* Small coral square bullet indicator */
+header .dropdown h2::before,
+header .dropdown h3::before,
+header .dropdown p:first-child::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: #ea624b;
+  margin-right: 8px;
+  border-radius: 1px;
 }
 
 header .dropdown ul {
@@ -220,6 +220,10 @@ header .dropdown ul {
 
 header .dropdown li {
   margin-bottom: 12px;
+}
+
+header .dropdown a:hover {
+  color: #ea624b;
 }
 
 /* =========================================
