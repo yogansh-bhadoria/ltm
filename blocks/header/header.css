@@ -36,9 +36,6 @@ header .nav-brand {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-}
-
-header .nav-brand{
   margin: 0;
   padding: 0;
   line-height: 1;
