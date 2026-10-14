@@ -24,8 +24,12 @@ export default async function decorate(block) {
     dropdown.className = 'asset_type_dropdown';
 
     const sortingValues = block.children[0].children[1].querySelector('ul');
-    const testDiv = document.createElement('div');
-    testDiv.append(sortingValues);
+    const assetTypes = sortingValues.querySelectorAll('li');
+    assetTypes.forEach((category) => {
+      const type = document.createElement('option');
+      type.textContent = category.textContent.trim();
+      dropdown.append(type);
+    });
 
     pagesToShow.forEach((page) => {
       const li = document.createElement('li');
@@ -65,7 +69,7 @@ export default async function decorate(block) {
     // Replace whatever was inside the block table with our cards list
     block.textContent = '';
     block.append(ul);
-    block.append(testDiv);
+    block.append(dropdown);
     return;
   }
 
