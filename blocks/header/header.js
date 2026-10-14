@@ -50,7 +50,7 @@ export default async function decorate(block) {
 
           dropdown.append(row.cloneNode(true));
         });
-        dropdown.style.display = dropdown.children.length > 0 ? 'block' : 'none';
+        dropdown.style.display = dropdown.children.length > 0 ? 'grid' : 'none';
         block.append(dropdown);
       }
     });
