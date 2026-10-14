@@ -12,7 +12,7 @@ export default async function decorate(block) {
   const fragment = await loadFragment(footerPath);
 
   const testDiv = document.createElement('div');
-  const links = block.children[0].querySelectorAll('li');
+  const links = block.children[1].querySelectorAll('li');
   links.forEach((element) => {
     testDiv.append(element.textContent.trim());
   });
