@@ -28,6 +28,7 @@ export default async function decorate(block) {
 
   const dropdown = document.createElement('div');
   dropdown.className = 'dropdown';
+  dropdown.style.display = 'none';
 
   navBrand.textContent = sections.children[0].children[1].textContent.trim();
 
@@ -55,5 +56,9 @@ export default async function decorate(block) {
     });
   });
 
+   navSections.addEventListener('mouseleave', () => {
+    dropdown.style.display = 'none';
+  });
+  
   block.append(nav);
 }
