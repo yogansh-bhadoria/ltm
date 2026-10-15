@@ -30,8 +30,9 @@ footer .links-wrapper {
 }
 
 footer .footer-links > div:last-child {
-  display: flex;
-  gap: 70px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
 }
 
 footer .footer-link-column {
