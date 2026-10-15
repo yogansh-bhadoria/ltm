@@ -29,7 +29,8 @@ footer .links-wrapper {
   flex: 1;
 }
 
-footer .footer-links > div:last-child {
+footer .footer-links-grid,
+footer .footer-links > div > div:last-child {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 50px;
@@ -50,4 +51,8 @@ footer .footer-link-column a {
   color: #111;
   text-decoration: none;
   font-size: 18px;
+}
+
+footer .footer-link-column a:hover {
+  color: #ea624b;
 }
