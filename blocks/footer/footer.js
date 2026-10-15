@@ -12,7 +12,7 @@ export default async function decorate(block) {
   const fragment = await loadFragment(footerPath);
 
   const testDiv = document.createElement('div');
-  const links = block.children;
+  const links = block.children[0].children[0];
   testDiv.append(links);
 
   // decorate footer DOM
