@@ -352,51 +352,84 @@ main > .section.banner-section {
   min-height: 500px;
   margin: 0;
   overflow: hidden;
+  background-color: #000;
   display: flex;
   align-items: center;
 }
 
-/* Remove normal 1200px section restriction */
+/* Content wrapper: spans full width for background, uses padding to align text */
 main > .section.banner-section > div {
-  max-width: none;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-/* Wrapper containing image + heading + description */
-main .banner-section .default-content-wrapper {
   position: relative;
   z-index: 1;
+  max-width: none;
   width: 100%;
   min-height: 500px;
+  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  padding: 60px 8%;
+  padding: 80px 24px;
 }
 
-/* Heading */
+/* Heading: clean sans-serif, left-aligned, wraps cleanly */
 main .banner-section h1,
 main .banner-section h2,
 main .banner-section h3 {
   position: relative;
-  color: #fff;
   z-index: 2;
-  max-width: 900px;
+  font-family: var(--body-font-family);
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  text-align: left;
+  color: #fff;
+  max-width: 950px;
+  margin: 0 0 20px;
 }
 
-/* Description */
+/* Subheading / description */
 main .banner-section p:not(:has(picture)) {
   position: relative;
-  color: #fff;
   z-index: 2;
-  max-width: 850px;
+  font-size: 18px;
+  line-height: 1.55;
+  text-align: left;
+  color: #e5e5e5;
+  max-width: 820px;
+  margin: 0 0 28px;
 }
 
-/* The paragraph containing the picture becomes the background */
-main .banner-section .default-content-wrapper > p:has(picture) {
+/* Case study CTA button: pill shape with brand red */
+main .banner-section p.button-wrapper {
+  margin: 0;
+}
+
+main .banner-section a.button:any-link,
+main .banner-section button.button {
+  background-color: #d74438;
+  border-color: #d74438;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 28px;
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+}
+
+main .banner-section a.button:hover,
+main .banner-section button.button:hover {
+  background-color: #bf3927;
+  border-color: #bf3927;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Background image fills the entire 100% height and width */
+main .banner-section p:has(picture) {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -406,28 +439,27 @@ main .banner-section .default-content-wrapper > p:has(picture) {
   z-index: -2;
 }
 
-/* Picture fills banner */
 main .banner-section picture {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-/* Image fills picture */
 main .banner-section picture img {
   display: block;
   width: 100%;
   height: 100%;
   max-width: none;
   object-fit: cover;
+  object-position: right center;
 }
 
-/* Dark layer so text is readable */
+/* Subtle dark gradient overlay to ensure text contrast */
 main .banner-section .default-content-wrapper::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgb(0 0 0 / 35%);
+  background: linear-gradient(90deg, rgb(0 0 0 / 80%) 0%, rgb(0 0 0 / 40%) 50%, rgb(0 0 0 / 15%) 100%);
   z-index: -1;
 }
 
@@ -438,6 +470,17 @@ main .banner-section .default-content-wrapper::after {
 @media (width >= 900px) {
   main > .section > div {
     padding: 0 32px;
+  }
+
+  /* Dynamically aligns banner text to the site's 1200px container grid */
+  main > .section.banner-section > div {
+    padding: 100px max(32px, calc((100vw - 1200px) / 2 + 32px)) 90px;
+  }
+
+  main .banner-section h1,
+  main .banner-section h2,
+  main .banner-section h3 {
+    font-size: 48px;
   }
 }
 
