@@ -436,15 +436,8 @@ main .banner-section .default-content-wrapper::after {
     padding: 0 32px;
   }
 
-  /* Compact desktop vertical padding (56px) and exact 1200px grid alignment */
   main > .section.banner-section > div {
-    padding: 56px max(32px, calc((100vw - 1200px) / 2 + 32px)) 56px;
-  }
-
-  main .banner-section h1,
-  main .banner-section h2,
-  main .banner-section h3 {
-    font-size: 40px;
+    padding: 60px 32px;
   }
 }
 
