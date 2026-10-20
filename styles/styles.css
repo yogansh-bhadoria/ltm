@@ -343,54 +343,115 @@ main > .section:first-of-type {
   color: #fff;
 }
 
-main .section.banner-section {
+/* =========================
+   BANNER SECTION
+   ========================= */
+
+main > .section.banner-section {
   position: relative;
-  min-height: 450px;
+  min-height: 500px;
+  margin: 0;
+  overflow: hidden;
+
   display: flex;
   align-items: center;
-  overflow: hidden;
 }
 
-/* Image container */
-main .section.banner-section .default-content-wrapper:has(picture) {
+
+/* Remove normal 1200px section restriction */
+main > .section.banner-section > div {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Wrapper containing image + heading + description */
+main .banner-section .default-content-wrapper {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  min-height: 500px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  box-sizing: border-box;
+  padding: 60px 8%;
+}
+
+
+/* The paragraph containing the picture becomes the background */
+main .banner-section .default-content-wrapper > p:has(picture) {
   position: absolute;
   inset: 0;
+
   width: 100%;
   height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  z-index: -2;
 }
 
+
 /* Picture fills banner */
-main .section.banner-section picture {
+main .banner-section picture {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-/* Actual image */
-main .section.banner-section picture img {
+
+/* Image fills picture */
+main .banner-section picture img {
+  display: block;
+
   width: 100%;
   height: 100%;
+
+  max-width: none;
+
   object-fit: cover;
 }
 
-/* Put textual content above image */
-main .section.banner-section .default-content-wrapper:not(:has(picture)) {
-  position: relative;
-  z-index: 2;
-  color: white;
-  width: 100%;
+
+/* Dark layer so text is readable */
+main .banner-section .default-content-wrapper::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: rgb(0 0 0 / 35%);
+
+  z-index: -1;
 }
+
 
 /* Heading */
-main .section.banner-section h1,
-main .section.banner-section h2,
-main .section.banner-section h3 {
-  color: white;
+main .banner-section h1,
+main .banner-section h2,
+main .banner-section h3 {
+  position: relative;
+  color: #fff;
+  z-index: 2;
+
+  max-width: 900px;
 }
 
-/* Subheading / description */
-main .section.banner-section p {
-  color: white;
+
+/* Description */
+main .banner-section p:not(:has(picture)) {
+  position: relative;
+  color: #fff;
+  z-index: 2;
+
+  max-width: 850px;
 }
 
 .form-section {
