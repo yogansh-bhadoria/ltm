@@ -330,6 +330,56 @@ main > .section:first-of-type {
     padding-bottom:5px;
 }
 
+main .section.banner-section {
+  position: relative;
+  min-height: 450px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Image container */
+main .section.banner-section .default-content-wrapper:has(picture) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Picture fills banner */
+main .section.banner-section picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Actual image */
+main .section.banner-section picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Put textual content above image */
+main .section.banner-section .default-content-wrapper:not(:has(picture)) {
+  position: relative;
+  z-index: 2;
+  color: white;
+  width: 100%;
+}
+
+/* Heading */
+main .section.banner-section h1,
+main .section.banner-section h2,
+main .section.banner-section h3 {
+  color: white;
+}
+
+/* Subheading / description */
+main .section.banner-section p {
+  color: white;
+}
+
 .dark-section h1,
 .dark-section h2,
 .dark-section h3,
