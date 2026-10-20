@@ -371,6 +371,10 @@ main .section.banner-section p {
 
 }
 
+main .section.banner-section p{
+    font-weight: 500;
+}
+
 main .section.banner-section p:has(picture) {
   position: absolute;
   inset: 0;
@@ -394,9 +398,6 @@ main .section.banner-section h2 {
   font-weight: 500;
 }
 
-main .section.banner-section p{
-    font-weight: 500;
-}
 
 /* section metadata */
 main .section.light,
