@@ -310,11 +310,6 @@ main img {
   width: 100%;
 }
 
-/* sections */
-main > .section {
-  margin: 40px 0;
-}
-
 main > .section > div {
   max-width: 1200px;
   margin: auto;
