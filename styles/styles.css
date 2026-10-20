@@ -348,30 +348,29 @@ main > .section:first-of-type {
    Section Metadata:
    Style | banner-section
    ========================================================= */
-main .banner-section {
+main .section.banner-section {
   position: relative;
   margin: 0;
   padding: 0;
 }
 
-main .banner-section > div:first-child {
+main .section.banner-section p:has(picture) {
   position: absolute;
   inset: 0;
   margin: 0;
-  padding: 0;
 }
 
-main .banner-section > div:first-child picture,
-main .banner-section > div:first-child img {
+main .section.banner-section picture,
+main .section.banner-section img {
+  display: block;
   width: 100%;
   height: 100%;
-}
-
-main .banner-section > div:first-child img {
   object-fit: cover;
 }
 
-main .banner-section > div:not(:first-child) {
+main .section.banner-section h1,
+main .section.banner-section h2,
+main .section.banner-section p {
   position: relative;
   color: white;
 }
