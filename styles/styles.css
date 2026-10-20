@@ -156,7 +156,7 @@ main > div {
 .center-heading h3,
 .center-heading h4,
 .center-heading h5,
-.center-heading h6{
+.center-heading h6 {
   text-align: center;
 }
 
@@ -352,11 +352,9 @@ main > .section.banner-section {
   min-height: 500px;
   margin: 0;
   overflow: hidden;
-
   display: flex;
   align-items: center;
 }
-
 
 /* Remove normal 1200px section restriction */
 main > .section.banner-section > div {
@@ -366,72 +364,18 @@ main > .section.banner-section > div {
   padding: 0;
 }
 
-
 /* Wrapper containing image + heading + description */
 main .banner-section .default-content-wrapper {
   position: relative;
   z-index: 1;
-
   width: 100%;
   min-height: 500px;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   box-sizing: border-box;
   padding: 60px 8%;
 }
-
-
-/* The paragraph containing the picture becomes the background */
-main .banner-section .default-content-wrapper > p:has(picture) {
-  position: absolute;
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  margin: 0;
-  padding: 0;
-
-  z-index: -2;
-}
-
-
-/* Picture fills banner */
-main .banner-section picture {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-
-/* Image fills picture */
-main .banner-section picture img {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  max-width: none;
-
-  object-fit: cover;
-}
-
-
-/* Dark layer so text is readable */
-main .banner-section .default-content-wrapper::after {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  background: rgb(0 0 0 / 35%);
-
-  z-index: -1;
-}
-
 
 /* Heading */
 main .banner-section h1,
@@ -440,18 +384,51 @@ main .banner-section h3 {
   position: relative;
   color: #fff;
   z-index: 2;
-
   max-width: 900px;
 }
-
 
 /* Description */
 main .banner-section p:not(:has(picture)) {
   position: relative;
   color: #fff;
   z-index: 2;
-
   max-width: 850px;
+}
+
+/* The paragraph containing the picture becomes the background */
+main .banner-section .default-content-wrapper > p:has(picture) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: -2;
+}
+
+/* Picture fills banner */
+main .banner-section picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Image fills picture */
+main .banner-section picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* Dark layer so text is readable */
+main .banner-section .default-content-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 35%);
+  z-index: -1;
 }
 
 .form-section {
