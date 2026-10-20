@@ -9,6 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap');
 
 :root {
   /* colors */
@@ -343,6 +344,12 @@ main > .section:first-of-type {
   color: #fff;
 }
 
+main .form-section {
+    background-color:#1b1b1b;
+    margin: 0;
+    padding: 0;
+}
+
 /* =========================================================
    CASE STUDY BANNER SECTION
    Section Metadata:
@@ -360,6 +367,8 @@ main .section.banner-section h2,
 main .section.banner-section p {
   position: relative;
   color: white;
+  font-family: 'DM Sans', sans-serif;
+
 }
 
 main .section.banner-section p:has(picture) {
@@ -382,6 +391,11 @@ main .section.banner-section h1,
 main .section.banner-section h2 {
   margin-top: 0;
   padding-top: 100px;
+  font-weight: 500;
+}
+
+main .section.banner-section p{
+    font-weight: 500;
 }
 
 /* section metadata */
