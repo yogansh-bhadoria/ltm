@@ -9,16 +9,14 @@ function renderCards(pages, ul) {
     const imageDiv = document.createElement('div');
     imageDiv.className = 'cards-card-image';
 
-    if (page.cover && page.cover.trim() !== '') {
-  const picture = createOptimizedPicture(
-    page.cover,
-    page.title || '',
-    false,
-    [{ width: '750' }],
-  );
-
-  imageDiv.append(picture);
-}geDiv.append(picture);
+    if (page.image && page.image.trim() !== '') {
+      const picture = createOptimizedPicture(
+        page.image,
+        page.title || '',
+        false,
+        [{ width: '750' }],
+      );
+      imageDiv.append(picture);
     }
 
     const tag = document.createElement('span');
