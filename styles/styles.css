@@ -343,101 +343,232 @@ main > .section:first-of-type {
   color: #fff;
 }
 
-/* =========================
-   BANNER SECTION
-   ========================= */
+/* =========================================================
+   CASE STUDY BANNER SECTION
+   Section Metadata:
+   Style | banner-section
+   ========================================================= */
 
-main > .section.banner-section {
+
+/* ---------------------------------------------------------
+   1. Banner section
+   Break out of the normal EDS main/container width
+   --------------------------------------------------------- */
+
+main .section.banner-section {
   position: relative;
-  background-color: #000;
-  margin: 0;
+
+  width: 100vw;
+  max-width: none;
+
+  /* Break outside the normal centred main container */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+
+  padding: 0;
+
+  min-height: 500px;
+
   overflow: hidden;
+
+  color: white;
+  background-color: #000;
 }
 
-main > .section.banner-section > div {
-  position: relative;
-  z-index: 1;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 50px 24px;
-}
 
-/* Heading */
-main .banner-section h1,
-main .banner-section h2,
-main .banner-section h3 {
-  font-family: var(--body-font-family);
-  font-size: 38px;
-  line-height: 1.2;
-  color: #fff;
-  max-width: 1050px;
-  margin: 0 0 16px;
-}
+/* ---------------------------------------------------------
+   2. Background image
+   The FIRST div inside the section contains the DA image
+   --------------------------------------------------------- */
 
-/* Description */
-main .banner-section p:not(:has(picture)) {
-  font-size: 16px;
-  line-height: 1.5;
-  color: #e5e5e5;
-  max-width: 950px;
-  margin: 0 0 24px;
-}
-
-/* Button */
-main .banner-section a.button:any-link {
-  background-color: #d74438;
-  border-color: #d74438;
-  color: #fff;
-  border-radius: 999px;
-  padding: 10px 24px;
-  font-size: 15px;
-}
-
-main .banner-section a.button:hover {
-  background-color: #bf3927;
-  border-color: #bf3927;
-  text-decoration: none;
-}
-
-/* Background image */
-main .banner-section p:has(picture) {
+main .section.banner-section > div:first-child {
   position: absolute;
   inset: 0;
+
   width: 100%;
   height: 100%;
+
+  max-width: none;
   margin: 0;
-  z-index: -2;
+  padding: 0;
+
+  z-index: 0;
 }
 
-main .banner-section picture,
-main .banner-section picture img {
+
+/* Make picture fill the banner */
+
+main .section.banner-section > div:first-child picture {
   display: block;
+
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: right center;
 }
 
-/* Dark overlay so text is easy to read */
-main .banner-section .default-content-wrapper::after {
+
+/* Make actual image cover the complete banner */
+
+main .section.banner-section > div:first-child img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+
+/* ---------------------------------------------------------
+   3. Optional dark overlay
+   Helps white text remain readable
+   --------------------------------------------------------- */
+
+main .section.banner-section::after {
   content: "";
+
   position: absolute;
   inset: 0;
-  background: rgb(0 0 0 / 40%);
-  z-index: -1;
+
+  background: rgb(0 0 0 / 25%);
+
+  z-index: 1;
+
+  pointer-events: none;
 }
 
-.form-section {
-  background-color: #1b1b1b;
+
+/* ---------------------------------------------------------
+   4. Content rows
+   Heading + paragraph sit ABOVE the background image
+   --------------------------------------------------------- */
+
+main .section.banner-section > div:not(:first-child) {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+  max-width: 1340px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-left: 64px;
+  padding-right: 64px;
+
+  box-sizing: border-box;
 }
 
-@media (width >= 900px) {
-  main > .section > div {
-    padding: 0 32px;
+
+/* ---------------------------------------------------------
+   5. Banner heading
+   --------------------------------------------------------- */
+
+main .section.banner-section h1,
+main .section.banner-section h2 {
+  max-width: 1200px;
+
+  margin-top: 0;
+  margin-bottom: 18px;
+
+  padding-top: 170px;
+
+  color: #fff;
+
+  font-size: 50px;
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+
+/* ---------------------------------------------------------
+   6. Banner description
+   --------------------------------------------------------- */
+
+main .section.banner-section p {
+  max-width: 1250px;
+
+  margin-top: 0;
+  margin-bottom: 0;
+
+  color: #fff;
+
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+
+/* Add space below the final content row */
+
+main .section.banner-section > div:last-child {
+  padding-bottom: 80px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (width < 900px) {
+
+  main .section.banner-section {
+    min-height: 450px;
   }
 
-  main > .section.banner-section > div {
-    padding: 60px 32px;
+  main .section.banner-section > div:not(:first-child) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  main .section.banner-section h1,
+  main .section.banner-section h2 {
+    padding-top: 140px;
+
+    font-size: 40px;
+  }
+
+  main .section.banner-section p {
+    font-size: 18px;
+  }
+
+  main .section.banner-section > div:last-child {
+    padding-bottom: 60px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (width < 600px) {
+
+  main .section.banner-section {
+    min-height: 400px;
+  }
+
+  main .section.banner-section > div:not(:first-child) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  main .section.banner-section h1,
+  main .section.banner-section h2 {
+    padding-top: 110px;
+    margin-bottom: 16px;
+
+    font-size: 32px;
+    line-height: 1.15;
+  }
+
+  main .section.banner-section p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  main .section.banner-section > div:last-child {
+    padding-bottom: 50px;
   }
 }
 
