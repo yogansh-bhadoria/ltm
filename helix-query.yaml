@@ -23,3 +23,6 @@ indices:
       category:
         select: head > meta[name="category" ]
         value: attribute(el, 'content')  
+      cover:
+       select: head > meta[name="cover" ]
+       value: attribute(el, 'content')
