@@ -9,9 +9,9 @@ function renderCards(pages, ul) {
     const imageDiv = document.createElement('div');
     imageDiv.className = 'cards-card-image';
 
-    if (page.image && page.image.trim() !== '') {
+    if (page.cover && page.cover.trim() !== '') {
       const picture = createOptimizedPicture(
-        page.image,
+        page.cover,
         page.title || '',
         false,
         [{ width: '750' }],
